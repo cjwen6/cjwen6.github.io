@@ -1,0 +1,481 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>「水」hack 某位同学的 SPJ - cjwen6&#39;s blog</title>
+<link rel="shortcut icon" href="https://cjwen6.cn/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cjwen6.cn/media/css/tailwind.css">
+<link rel="stylesheet" href="https://cjwen6.cn/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="「水」hack 某位同学的 SPJ - cjwen6&#39;s blog - Atom Feed" href="https://cjwen6.cn/atom.xml">
+
+
+
+<script async src="https://cjwen-ackee.vercel.app/tracker.js" data-ackee-server="https://cjwen-ackee.vercel.app" data-ackee-domain-id="dbd96cf9-8edb-42d7-9a22-a7a1751dd8eb"></script>
+    <meta name="description" content="v1
+原「史上最牛逼 SPJ」：
+#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;cstdio&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+using namespace std;char str[10..." />
+    <meta property="og:title" content="「水」hack 某位同学的 SPJ - cjwen6&#39;s blog">
+    <meta property="og:description" content="v1
+原「史上最牛逼 SPJ」：
+#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;cstdio&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+using namespace std;char str[10..." />
+    <meta property="og:type" content="articles">
+    <meta property="og:url" content="https://cjwen6.cn/post/Sb80ymDFn/" />
+    <meta property="og:image"
+      content="https://cjwen6.cn/images/avatar.png">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta name="twitter:title" content="「水」hack 某位同学的 SPJ - cjwen6&#39;s blog">
+    <meta name="twitter:description" content="v1
+原「史上最牛逼 SPJ」：
+#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;cstdio&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+using namespace std;char str[10...">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://cjwen6.cn/post/Sb80ymDFn/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+
+    
+      <link rel="stylesheet"
+        href="https://cjwen6.cn/media/css/prism-atom-dark.css">
+      
+
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+          
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://cjwen6.cn"
+      class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      cjwen6&#39;s blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div
+        class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          「水」hack 某位同学的 SPJ
+        </h1>
+        
+            <div class="mb-8 flex-wrap">
+              <div id="/post/Sb80ymDFn/" class="text-gray-400 text-sm mr-4 leancloud_visitors">
+                2022-02-11 · 4 min read
+                    <br>
+
+                    
+                      <a href="https://cjwen6.cn/tag/shui/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        水
+                      </a>
+                      
+              </div>
+            </div>
+            <div class="markdown mb-8" v-pre>
+              <h2 id="v1">v1</h2>
+<p>原「史上最牛逼 SPJ」：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;char str[10000005],str1[10000005];
+int main() {int x,y;
+    FILE *fco=fopen(&quot;code&quot;,&quot;r&quot;),*frep=stderr;
+    FILE *fop=fopen(&quot;user_out&quot;,&quot;r&quot;),*fsco=stdout;
+    FILE *fans=fopen(&quot;answer&quot;,&quot;r&quot;);
+    while(~fscanf(fop,&quot;%d&quot;,&amp;x))
+    {
+    	fscanf(fans,&quot;%d&quot;,&amp;y);
+	    if(x^y)
+	    {
+	        fprintf(frep,&quot;Wrong Answer! Expected %lld but read %lld&quot;,y,x);
+	        fprintf(fsco,&quot;0&quot;);return 0;
+	    }
+    	
+	}
+    
+    while (~fscanf(fco,&quot;%s&quot;,str)) {int sz=strlen(str);
+        for (register int i=0;i&lt;sz;++i){if ((str[i]=='s'&amp;&amp;str[i+1]=='o')) {
+            fprintf(frep,&quot;Character 'r' is found in your code!&quot;);
+            fprintf(fsco,&quot;0&quot;);return 0;
+        }
+        if ((str[i]=='q')) {
+            fprintf(frep,&quot;Character 'q' is found in your code!&quot;);
+            fprintf(fsco,&quot;0&quot;);return 0;
+        }
+		}
+    }fprintf(frep,&quot;Accepted!&quot;);fprintf(fsco,&quot;100&quot;);return 0;
+}
+</code></pre>
+<p>神奇 SPJ，什么都不输出就可以拿满分，导致 1B 过 T1。</p>
+<p><s>（差点 0B，要交上去的时候 SPJ 被修好了</s></p>
+<h2 id="v2">v2</h2>
+<blockquote>
+<p>代码中不允许出现连续的 's' 和 'o'，不允许出现 'q'</p>
+</blockquote>
+<p>看来去重没办法了，但 sort 还是可以用的。</p>
+<pre><code class="language-cpp">s\
+ort(a, a+n);
+</code></pre>
+<p>后来被改了，「\」前不允许出现 &quot;sort&quot; 中任意字符。</p>
+<h2 id="v3">v3</h2>
+<p>python? python!</p>
+<p>众所周知 python 中 <code>exec()</code> 函数可以执行指定语句，所以 <code>exec(&quot;a.s&quot;+&quot;ort()&quot;)</code> 就可以避开检测。</p>
+<p>后题目改成了 20m, 100ms，python空间大，过不去。</p>
+<p>尝试改成以下，但发现读入就爆空间了。。。。。</p>
+<p><s>（改之前是不是 C++ 冒泡也能过啊？</s></p>
+<pre><code class="language-python">n = int(input())
+
+a = input().split()
+
+i = 0
+while i &lt; n:
+    a[i] = int(a[i])
+    i = i + 1
+
+exec(&quot;a.s&quot;+&quot;ort()&quot;)
+
+i = 0
+while i &lt; n:
+    print(a[i], end=' ')
+    i = i + 1
+
+print()
+
+exec(&quot;a = list(s&quot;+&quot;et(a))&quot;)
+exec(&quot;a.s&quot;+&quot;ort()&quot;)
+
+print(len(a))
+
+i = 0
+while i &lt; n:
+    print(a[i], end=' ')
+    i = i + 1
+</code></pre>
+<h2 id="v4">v4</h2>
+<p>写完作业，想起来 <code>define</code>……</p>
+<p>所以</p>
+<pre><code class="language-cpp">#define S s##ort
+</code></pre>
+<p>就可以使用 sort 了！</p>
+<p>最终 AC 代码如下：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+
+#define S s##ort
+
+using namespace std;
+
+const int N = 1e5 + 10;
+
+int n, a[N];
+vector &lt;int&gt; b;
+
+int main(){
+
+    scanf(&quot;%d&quot;, &amp;n);
+
+    for(int i = 0; i &lt; n; i++){
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    }
+
+    S(a, a+n);
+
+    for(int i = 0; i &lt; n; i++){
+        printf(&quot;%d &quot;, a[i]);
+    }
+
+    puts(&quot;&quot;);
+
+    b.push_back(a[0]);
+
+    for(int i = 1; i &lt; n; i++){
+        if(a[i] != a[i-1]){
+            b.push_back(a[i]);
+        }
+    }
+
+    printf(&quot;%d\n&quot;, b.size());
+
+    for(int i = 0; i &lt; b.size(); i++){
+        printf(&quot;%d &quot;, b[i]);
+    }
+
+    puts(&quot;&quot;);
+
+    return 0;
+}
+</code></pre>
+<p>截止发博文时 SPJ 并未被修。</p>
+
+            </div>
+            <!-- Share to Twitter, Weibo, Telegram -->
+            <div class="flex items-center">
+              <div class="mr-4 flex items-center">
+                <i class="ri-share-forward-line text-gray-500"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTwitter">
+                <i class="ri-twitter-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToWeibo">
+                <i class="ri-weibo-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTelegram">
+                <i class="ri-telegram-line"></i>
+              </div>
+            </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+          
+
+            
+                  
+
+                    
+
+                        <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Copyright © 2021~2022 <a href="/">cjwen6</a>
+</footer>
+
+<script type="text/javascript">
+  a=document.getElementsByTagName("a");for(var i = 0; i < a.length; i++)if(a[i].title == "站长统计")a[i].remove();
+</script>
+    </div>
+
+    <!-- TOC Container -->
+    <div
+      class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight"
+      @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div
+      class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast"
+      :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div
+          class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast"
+          @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#v1">v1</a></li>
+<li><a href="#v2">v2</a></li>
+<li><a href="#v3">v3</a></li>
+<li><a href="#v4">v4</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div
+      class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200"
+      @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cjwen6.cn/media/scripts/main.js"></script>
+
+    <!-- Code Highlight -->
+    
+      <script src="https://cjwen6.cn/media/prism.js"></script>
+      <script>
+        Prism.highlightAll()
+      </script>
+      
+
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+        <script>
+          //拿到预览框架，也就是上面的html代码
+          var pswpElement = document.querySelectorAll('.pswp')[0];
+          //定义图片数组变量
+          var imgitems;
+          /**
+          * 用于显示预览界面
+          * @param index 图片数组下标
+          */
+          function viewImg(index) {
+            //其它选项这里不做过多阐述，详情见官网
+            var pswpoptions = {
+              index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+              bgOpacity: 0.7, // 背景透明度，0-1
+              maxSpreadZoom: 3, // 缩放级别，不要太大
+            };
+            //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+            gallery.init()
+          }
+          /**
+          * 用于添加图片点击事件
+          * @param img 图片元素
+          * @param index 所属下标（在imgitems中的位置）
+          */
+          function addImgClick(img, index) {
+            img.onclick = function () {
+              viewImg(index)
+            }
+          }
+          /**
+          * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+          * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+          * 异步加载图片可在图片元素创建完成后调用此方法
+          */
+          function initImg() {
+            //重置图片数组
+            imgitems = [];
+            //查找class:markdown 下的所有img元素并遍历
+            var imgs = document.querySelectorAll('.markdown img');
+            for (var i = 0; i < imgs.length; i++) {
+              var img = imgs[i];
+              //本站相册初始为loading图片，真实图片放在data-src
+              var ds = img.getAttribute("data-src");
+              //创建image对象，用于获取图片宽高
+              var imgtemp = new Image();
+              //判断是否存在data-src
+              if (ds != null && ds.length > 0) {
+                imgtemp.src = ds
+              } else {
+                imgtemp.src = img.src
+              }
+              //判断是否存在缓存
+              if (imgtemp.complete) {
+                var imgobj = {
+                  "src": imgtemp.src,
+                  "w": imgtemp.width,
+                  "h": imgtemp.height,
+                };
+                imgitems[i] = imgobj;
+                addImgClick(img, i);
+              } else {
+                console.log('进来了2')
+                imgtemp.index = i;
+                imgtemp.img = img;
+                imgtemp.onload = function () {
+                  var imgobj = {
+                    "src": this.src,
+                    "w": this.width,
+                    "h": this.height,
+                  };
+                  //不要使用push，因为onload前后顺序会不同
+                  imgitems[this.index] = imgobj
+                  //添加点击事件
+                  addImgClick(this.img, this.index);
+                }
+              }
+            }
+          }
+          //初始化
+          initImg();
+        </script>
+        
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: '777e3f2c1277f7b20337',
+    clientSecret: '7135e05ea2073505f473d3d982a48a1397ecb5a0',
+    repo: 'blog-gitalk',
+    owner: 'cjwen6',
+    admin: ['cjwen6'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                    
+                      
+</body>
+
+</html>

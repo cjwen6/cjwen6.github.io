@@ -1,0 +1,371 @@
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>cjwen6&#39;s blog</title>
+<link rel="shortcut icon" href="https://cjwen6.cn/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cjwen6.cn/media/css/tailwind.css">
+<link rel="stylesheet" href="https://cjwen6.cn/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="cjwen6&#39;s blog - Atom Feed" href="https://cjwen6.cn/atom.xml">
+
+
+
+<script async src="https://cjwen-ackee.vercel.app/tracker.js" data-ackee-server="https://cjwen-ackee.vercel.app" data-ackee-domain-id="dbd96cf9-8edb-42d7-9a22-a7a1751dd8eb"></script>
+  <meta name="description" content="既然选择了远方，便只顾风雨兼程。" />
+</head>
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+
+    <div class="nav py-3 md:py-8 fixed w-full z-10 bg-gray-50 dark:bg-gray-700 transition-all duration-300" :class="{ 'scroll': scrolled }">
+  <div class="flex justify-end px-4">
+    <div class="w-8 h-8 flex justify-center items-center rounded-full md:hidden" @click="showMenu = !showMenu">
+      <i class="ri-close-line" v-show="showMenu"></i>
+      <i class="ri-menu-3-line" v-show="!showMenu"></i>
+    </div>
+  </div>
+  <nav class="max-w-4xl w-full mx-auto text-center flex flex-col md:flex-row justify-center md:block" :class="`${ showMenu ? 'block' : 'hidden' }`">
+    
+      <a href="/" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        首页
+      </a>
+    
+      <a href="/archives" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        归档
+      </a>
+    
+      <a href="/tags" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        标签
+      </a>
+    
+      <a href="/post/about/" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        关于
+      </a>
+    
+    <a href="https://cjwen6.cn/atom.xml" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+      RSS
+    </a>
+  </nav>
+</div>
+
+    <div class="max-w-4xl w-full mx-auto ">
+      
+        <header class="flex py-16 md:py-32 mt-12 flex-col md:flex-row px-4 md:px-0 animated fadeIn">
+  <div class="flex-1 order-2 md:order-1 md:pr-16">
+    <div class="text-4xl font-bold text-center md:text-left">
+      cjwen6&#39;s blog
+    </div>
+    <div class="text-xl text-gray-500 mt-4 text-center md:text-left">
+      既然选择了远方，便只顾风雨兼程。
+    </div>
+    
+      <div class="mt-8 text-center md:text-left">
+        <a
+          href="/post/about/" 
+          arget="_blank"
+          class="text-sm bg-yellow-50 dark:bg-indigo-500 dark:text-gray-700 font-semibold px-4 py-2 inline-block yellow-btn transition-fast rounded"
+        >About</a>
+      </div>
+    
+    
+      <div class="mt-8 flex items-center">
+        
+          <div class="text-gray-500 mr-2">
+            Follow me 👉
+          </div>
+        
+        
+          
+        
+          
+        
+          
+            
+              <a href="https://github.com/cjwen6" target="_blank" class="mr-2 w-8 h-8 inline-flex items-center justify-center text-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast">
+                <i class="ri-github-line"></i>
+              </a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    
+  </div>
+  <div class="md:mx-8 flex-shrink-0 self-start rounded-full border-4 border-dotted border-transparent hover:border-yellow-50 p-2 w-32 h-32 order-1 md:order-2 mx-auto s3-dotted">
+    <img class="rounded-full object-cover" src="https://cjwen6.cn/images/avatar.png?v=1656584290818" alt="cjwen6&#39;s blog" width="100%" height="100%">
+  </div>
+</header>
+      
+
+      <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
+        
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/rqBF7fmXp/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          自动监测 YAOJ 排行榜变化程序
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-06-30</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        
+注意：请在使用前询问网站开发员，是否允许使用此程序，因为这会给网站带来小小的压力。
+
+
+许多同学出模拟赛时，总是很关注排行榜，但一直守在电脑前刷新比较浪费时间，即使用自动刷新插件也要时不时去看，有些浪费时间。基于此，我口胡开发了一个简单的...
+      </div>
+      <a href="https://cjwen6.cn/post/rqBF7fmXp/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/HPYTrs4LJ/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「题解」YAOI Summer 2022 Round #1 (Div.2)
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-06-29</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        A. 巧克力（chocolates）
+分析
+40分做法：前缀和预处理，然后枚举，时间复杂度 O(n2)O(n^{2})O(n2)
+正解有许多做法，在此介绍其中一种：双指针。左右两个指针，分别指向头尾，若此时 s1&gt;s2s1 &gt; ...
+      </div>
+      <a href="https://cjwen6.cn/post/HPYTrs4LJ/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/2Ej4ORZT9/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          2021-03-20 模拟赛
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-03-23</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        A. 【T1】签到题 (sign)
+数列 aaa 满足 a1=1.5−1,ai+1=1−4i×ai2i−1(i≥1)a_{1}=\sqrt{1.5}-1, a_{i+1}=\frac{1-4 i \times a_{i}}{2 i-1}(i...
+      </div>
+      <a href="https://cjwen6.cn/post/2Ej4ORZT9/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/XM1Uq-UXg/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「笔记」折半搜索（Meet in the Middle）
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-03-22</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        思想
+先搜索前一半的状态，再搜索后一半的状态，再记录两边状态相结合的答案。
+暴力搜索的时间复杂度通常是 O(2n)O(2^{n})O(2n) 级别的。但折半搜索可以将时间复杂度降到 O(2×2n2)O(2 \times 2^{\frac{n...
+      </div>
+      <a href="https://cjwen6.cn/post/XM1Uq-UXg/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/uzGA5cZ6i/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「题解」佳佳的魔法药水
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-02-26</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        题目链接
+Luogu P1875 佳佳的魔法药水
+分析
+初始的时候每个点的 disdisdis 为本身花费，ansansans 为 111。
+读入 a,b,ca, b, ca,b,c，则分别连 a⇒disbc,b⇒disaca \stack...
+      </div>
+      <a href="https://cjwen6.cn/post/uzGA5cZ6i/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/9BcS6B1RZ/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「水」学校体检
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-02-26</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        题意概括
+有 101010 项体检项目，每个项目有不同的进行时间和排队等待时间，求做完所有体检项目，最少需要花费的时间。
+分析
+不要先抢着去人少的项目，因为大家都会去人少的项目，你能看到的人少的项目都只是进行时间很快的项目，什么时候都很少人...
+      </div>
+      <a href="https://cjwen6.cn/post/9BcS6B1RZ/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/eAks9rtmL/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「题解」Roads and Planes
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-02-25</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        题目链接
+Luogu P3008 [USACO11JAN]Roads and Planes G
+分析
+直接 SPFA 根据数据范围是会超时的，但由于这是一道老题，所以优先队列优化 SPFA 也是可以通过的，但这并不是正解，下文不加以介绍。
+...
+      </div>
+      <a href="https://cjwen6.cn/post/eAks9rtmL/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/Sb80ymDFn/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「水」hack 某位同学的 SPJ
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-02-11</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        v1
+原「史上最牛逼 SPJ」：
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;char str[10...
+      </div>
+      <a href="https://cjwen6.cn/post/Sb80ymDFn/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/4bwdBjtFp/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「笔记」单调栈
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-01-21</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        栈
+栈是 OI 中常用的一种线性数据结构。
+栈的修改是按照后进先出的原则进行的，因此栈通常被称为是后进先出（last in first out）表，简称 LIFO 表。
+下文均使用名为 st ，栈底为 st[1] ，栈顶为 st[top] ...
+      </div>
+      <a href="https://cjwen6.cn/post/4bwdBjtFp/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://cjwen6.cn/post/1BddQEcTp/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          「笔记」负环与查分约束（例题）
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2022-01-05</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        P1993 小 K 的农场
+查分约束的主要思想在于建边。
+观察 nnn 个未知数组成的不等式组：
+给定 nnn 个数和 mmm 个约束条件（如 xi−xj≤cx_i - x_j \leq cxi​−xj​≤c），求一组解。
+约束条件可以转化...
+      </div>
+      <a href="https://cjwen6.cn/post/1BddQEcTp/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+  
+      </div>
+
+      
+  <div class="my-4 flex justify-between px-4 md:px-0">
+    
+    
+      <a href="https://cjwen6.cn/page/2" class="btn btn-white">
+        下一页
+        <i class="ri-arrow-right-line ml-4"></i>
+      </a>
+    
+  </div>
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Copyright © 2021~2022 <a href="/">cjwen6</a>
+</footer>
+
+<script type="text/javascript">
+  a=document.getElementsByTagName("a");for(var i = 0; i < a.length; i++)if(a[i].title == "站长统计")a[i].remove();
+</script>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cjwen6.cn/media/scripts/main.js"></script>
+</body>
+
+</html>

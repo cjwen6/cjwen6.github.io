@@ -1,0 +1,495 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>「笔记」折半搜索（Meet in the Middle） - cjwen6&#39;s blog</title>
+<link rel="shortcut icon" href="https://cjwen6.cn/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cjwen6.cn/media/css/tailwind.css">
+<link rel="stylesheet" href="https://cjwen6.cn/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="「笔记」折半搜索（Meet in the Middle） - cjwen6&#39;s blog - Atom Feed" href="https://cjwen6.cn/atom.xml">
+
+
+
+<script async src="https://cjwen-ackee.vercel.app/tracker.js" data-ackee-server="https://cjwen-ackee.vercel.app" data-ackee-domain-id="dbd96cf9-8edb-42d7-9a22-a7a1751dd8eb"></script>
+    <meta name="description" content="思想
+先搜索前一半的状态，再搜索后一半的状态，再记录两边状态相结合的答案。
+暴力搜索的时间复杂度通常是 O(2n)O(2^{n})O(2n) 级别的。但折半搜索可以将时间复杂度降到 O(2×2n2)O(2 \times 2^{\frac{n..." />
+    <meta property="og:title" content="「笔记」折半搜索（Meet in the Middle） - cjwen6&#39;s blog">
+    <meta property="og:description" content="思想
+先搜索前一半的状态，再搜索后一半的状态，再记录两边状态相结合的答案。
+暴力搜索的时间复杂度通常是 O(2n)O(2^{n})O(2n) 级别的。但折半搜索可以将时间复杂度降到 O(2×2n2)O(2 \times 2^{\frac{n..." />
+    <meta property="og:type" content="articles">
+    <meta property="og:url" content="https://cjwen6.cn/post/XM1Uq-UXg/" />
+    <meta property="og:image"
+      content="https://cjwen6.cn/images/avatar.png">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta name="twitter:title" content="「笔记」折半搜索（Meet in the Middle） - cjwen6&#39;s blog">
+    <meta name="twitter:description" content="思想
+先搜索前一半的状态，再搜索后一半的状态，再记录两边状态相结合的答案。
+暴力搜索的时间复杂度通常是 O(2n)O(2^{n})O(2n) 级别的。但折半搜索可以将时间复杂度降到 O(2×2n2)O(2 \times 2^{\frac{n...">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://cjwen6.cn/post/XM1Uq-UXg/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+
+    
+      <link rel="stylesheet"
+        href="https://cjwen6.cn/media/css/prism-atom-dark.css">
+      
+
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+          
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://cjwen6.cn"
+      class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      cjwen6&#39;s blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div
+        class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          「笔记」折半搜索（Meet in the Middle）
+        </h1>
+        
+            <div class="mb-8 flex-wrap">
+              <div id="/post/XM1Uq-UXg/" class="text-gray-400 text-sm mr-4 leancloud_visitors">
+                2022-03-22 · 7 min read
+                    <br>
+
+                    
+                      <a href="https://cjwen6.cn/tag/zhe-ban-sou-suo/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        折半搜索
+                      </a>
+                      
+                      <a href="https://cjwen6.cn/tag/bi-ji/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        笔记
+                      </a>
+                      
+              </div>
+            </div>
+            <div class="markdown mb-8" v-pre>
+              <h2 id="思想">思想</h2>
+<p>先搜索前一半的状态，再搜索后一半的状态，再记录两边状态相结合的答案。</p>
+<p>暴力搜索的时间复杂度通常是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 级别的。但折半搜索可以将时间复杂度降到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>2</mn><mo>×</mo><msup><mn>2</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2 \times 2^{\frac{n}{2}})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.09708em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，再加上统计答案的时间复杂度，总复杂度几乎缩小了一半。</p>
+<h2 id="例题">例题</h2>
+<h3 id="ceoi2015-day2世界冰球锦标赛">「CEOI2015 Day2」世界冰球锦标赛</h3>
+<h4 id="题目链接">题目链接</h4>
+<p><a href="https://www.luogu.com.cn/problem/P4799">Luogu P4799 [CEOI2015 Day2]世界冰球锦标赛</a></p>
+<h4 id="分析">分析</h4>
+<p>用折半搜索的思想，先搜索 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><mo>⌊</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌋</mo></mrow><annotation encoding="application/x-tex">0 \sim \lfloor \frac{n}{2} \rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.095em;vertical-align:-0.345em;"></span><span class="mopen">⌊</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">⌋</span></span></span></span> 的比赛，再搜索 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>⌊</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌋</mo><mo>+</mo><mn>1</mn><mo>)</mo><mo>∼</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">(\lfloor \frac{n}{2} \rfloor + 1) \sim n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.095em;vertical-align:-0.345em;"></span><span class="mopen">(</span><span class="mopen">⌊</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">⌋</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的比赛。每个比赛有看与不看两种状态，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>2</mn><mo>×</mo><msup><mn>2</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2 \times 2^{\frac{n}{2}})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.09708em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。在搜索后半部分的时候，假设该状态的花费是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span>，则去前半部分的答案中找到所有花费小于等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>−</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">m - s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 的结果，统计答案。</p>
+<p>前半部分搜索的时候记录所有的答案，然后排序，这样后半部分统计答案的时候可以二分。</p>
+<p>总的时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>+</mo><msup><mn>2</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>⋅</mo><mi>log</mi><mo>⁡</mo><mo>(</mo><msup><mn>2</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^{\frac{n}{2}} + 2^{\frac{n}{2}} \cdot \log(2^{\frac{n}{2}}))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.09708em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84708em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.09708em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，可通过本题。</p>
+<p>注意 <code>vector</code> 的常数问题：本题如果采用两个 <code>vector</code> 数组，分别记录两边的答案，最后再统计，则会在 <span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲45'>#45</span> 测试点 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Linhk1606/fontawesome-cdn@master/css/all.min.css"><span class="status time_limit_exceeded" style="color: sandybrown;"><i class="fad fa-fw fa-clock"></i> Time Limit Exceeded</span>（开 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>O2</mtext></mrow><annotation encoding="application/x-tex">\text{O2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">O2</span></span></span></span></span> 可过）。</p>
+<h4 id="参考代码">参考代码</h4>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+const int N = 50;
+
+int n;
+long long m, w[N];
+vector &lt;long long&gt; v1; // 存储所有前部部分可以得到的状态的花费（可重）
+long long ans;
+
+void dfs1(int p, long long s){ // p -&gt; 当前位置，s -&gt; 当前花费，下同
+	if(p &gt;= (n/2)){
+		v1.push_back(s); // 记录前半部分状态
+		return ;
+	}
+	dfs1(p+1, s);
+	if(s + w[p] &lt;= m){
+		dfs1(p+1, s+w[p]);
+	}
+}
+
+void dfs2(int p, long long s){
+	if(p &gt;= n){
+		ans += upper_bound(v1.begin(), v1.end(), m - s) - v1.begin(); // 统计前半部分花费小于 (m-s) 的状态数量
+		return ;
+	}
+	dfs2(p+1, s);
+	if(s + w[p] &lt;= m){
+		dfs2(p+1, s+w[p]);
+	}
+}
+
+int main(){
+	
+	scanf(&quot;%d%lld&quot;, &amp;n, &amp;m);
+	
+	for(int i = 0; i &lt; n; i++){
+		scanf(&quot;%lld&quot;, &amp;w[i]);
+	}
+	
+	dfs1(0, 0);
+	
+	sort(v1.begin(), v1.end()); // 升序排序
+	
+	dfs2((n/2), 0);
+	
+	printf(&quot;%lld\n&quot;, ans);
+	
+	return 0;
+}
+</code></pre>
+<h3 id="usaco-12-openbalanced-cow-subsets-g">「USACO 12 OPEN」Balanced Cow Subsets G</h3>
+<h4 id="题目链接-2">题目链接</h4>
+<p><a href="https://www.luogu.com.cn/problem/P3067">Luogu P3067 [USACO12OPEN]Balanced Cow Subsets G</a></p>
+<h4 id="分析-2">分析</h4>
+<p>同样折半搜索，先搜索 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><mo>⌊</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌋</mo></mrow><annotation encoding="application/x-tex">0 \sim \lfloor \frac{n}{2} \rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.095em;vertical-align:-0.345em;"></span><span class="mopen">⌊</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">⌋</span></span></span></span> 的数，再搜索 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>⌊</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>⌋</mo><mo>+</mo><mn>1</mn><mo>)</mo><mo>∼</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">(\lfloor \frac{n}{2} \rfloor + 1) \sim n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.095em;vertical-align:-0.345em;"></span><span class="mopen">(</span><span class="mopen">⌊</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">⌋</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的数。</p>
+<p>每个数有「放第一组」「放第二组」「不选」共三种状态，可以在搜索的时候把「放第一组」记为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>+</mo></mrow><annotation encoding="application/x-tex">+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span></span></span></span>，把「放第二组」记为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo></mrow><annotation encoding="application/x-tex">-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span></span></span></span>，「不选」就不加也不减，这样两组相等就是和为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。</p>
+<p>在搜索后半部分的时候，记录答案，假设该状态的和是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span>，则去前半部分的答案中找到所有等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">-s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord mathdefault">s</span></span></span></span> 的结果。</p>
+<p>直接这样交会 <span class="status wrong_answer" style="color: red;"><i class="fad fa-fw fa-times"></i>Wrong Answer <span style="color: #ffa900;"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>38</mn></mrow><annotation encoding="application/x-tex">38</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span></span></span></span></span></span>。仔细看题，要求的是找出一些数，使得它们能被分为两组。比如有四个数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">a, b, c, d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span></span></span></span>，满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>=</mo><mi>c</mi><mo>+</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">a + b = c + d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>+</mo><mi>d</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">c + d = a + b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>+</mo><mi>c</mi><mo>=</mo><mi>b</mi><mo>+</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">a + c = b + d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo>+</mo><mi>d</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">b + d = a + c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> 之类，就会被重复记录。还有诸如此类的多个数的重复情况。所以要记录选数的情况（有些类似 hash 的思想），比如有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">a, b, c, d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span></span></span></span> 四个数，选了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">a, c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span></span></span></span> 两个，就用二进制数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1010</mn></mrow><annotation encoding="application/x-tex">1010</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">1</span><span class="mord">0</span></span></span></span> 记录（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 表示选，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 表示不选）。再左移 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span> 位（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>≤</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">n \leq 20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span></span></span></span>，前半部分最多 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span> 个数），并连接上后半部分的选数情况，就得到了形如 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1010000000</mn><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">1010000000xxxx</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span></span></span></span> 的二进制数，开 bool 数组去重即可。</p>
+<p>这样时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>3</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>+</mo><msup><mn>3</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>⋅</mo><mi>log</mi><mo>⁡</mo><mo>(</mo><msup><mn>3</mn><mfrac><mi>n</mi><mn>2</mn></mfrac></msup><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">O(3^{\frac{n}{2}} + 3^{\frac{n}{2}} \cdot \log(3^{\frac{n}{2}}))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.09708em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84708em;vertical-align:0em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.09708em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.84708em;"><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，实际远远跑不满，在开 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>O2</mtext></mrow><annotation encoding="application/x-tex">\text{O2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">O2</span></span></span></span></span> 的情况下最慢的测试数据也才 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>131</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">131ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">3</span><span class="mord">1</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span>。</p>
+<p>代码中 <code>v1[x]</code> 是 <code>vector</code> 类型的，该数组表示所有前半部分答案为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的选数情况记录。</p>
+<p>还是注意考虑 <code>vector</code> 的常数问题，必要时善用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>O2</mtext></mrow><annotation encoding="application/x-tex">\text{O2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">O2</span></span></span></span></span>。</p>
+<h4 id="参考代码-2">参考代码</h4>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+#include&lt;unordered_map&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+const int N = 30, F = 1 &lt;&lt; 21;
+
+int n;
+int a[N];
+unordered_map &lt;long long, vector &lt;int&gt; &gt; v1;
+long long ans;
+bool vis[F];
+
+void dfs1(int p, int s, int tp){ // p -&gt; 当前位置，s -&gt; 当前和，tp -&gt; 选数记录（用于去重），下同
+	if(p &gt;= (n/2)){
+		v1[s].push_back(tp); // 记录选数的情况
+		return ;
+	}
+	dfs1(p+1, s+a[p], (tp&lt;&lt;1)|1); // 放入第一组
+	dfs1(p+1, s-a[p], (tp&lt;&lt;1)|1); // 放入第二组
+	dfs1(p+1, s, (tp&lt;&lt;1)); // 不选
+}
+
+void dfs2(int p, int s, int tp){
+	if(p &gt;= n){
+		for(int i : v1[-s]){ // 枚举前半部分所有结果为 -s 的
+			if(!vis[(i&lt;&lt;10)|tp]){ // 去重
+				vis[(i&lt;&lt;10)|tp] = 1;
+				ans++;
+			}
+		}
+		return ;
+	}
+	dfs2(p+1, s+a[p], (tp&lt;&lt;1)|1); // 放入第一组
+	dfs2(p+1, s-a[p], (tp&lt;&lt;1)|1); // 放入第二组
+	dfs2(p+1, s, (tp&lt;&lt;1)); // 不选
+}
+
+int main(){
+	
+	scanf(&quot;%d&quot;, &amp;n);
+	
+	for(int i = 0; i &lt; n; i++){
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	
+	dfs1(0, 0, 0);
+	
+	dfs2((n/2), 0, 0);
+	
+	printf(&quot;%lld\n&quot;, ans-1); // 减去都不选的情况
+	
+	return 0;
+}
+</code></pre>
+
+            </div>
+            <!-- Share to Twitter, Weibo, Telegram -->
+            <div class="flex items-center">
+              <div class="mr-4 flex items-center">
+                <i class="ri-share-forward-line text-gray-500"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTwitter">
+                <i class="ri-twitter-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToWeibo">
+                <i class="ri-weibo-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTelegram">
+                <i class="ri-telegram-line"></i>
+              </div>
+            </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+          
+
+            
+                  
+
+                    
+
+                        <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Copyright © 2021~2022 <a href="/">cjwen6</a>
+</footer>
+
+<script type="text/javascript">
+  a=document.getElementsByTagName("a");for(var i = 0; i < a.length; i++)if(a[i].title == "站长统计")a[i].remove();
+</script>
+    </div>
+
+    <!-- TOC Container -->
+    <div
+      class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight"
+      @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div
+      class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast"
+      :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div
+          class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast"
+          @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%80%9D%E6%83%B3">思想</a></li>
+<li><a href="#%E4%BE%8B%E9%A2%98">例题</a>
+<ul>
+<li><a href="#ceoi2015-day2%E4%B8%96%E7%95%8C%E5%86%B0%E7%90%83%E9%94%A6%E6%A0%87%E8%B5%9B">「CEOI2015 Day2」世界冰球锦标赛</a>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5">题目链接</a></li>
+<li><a href="#%E5%88%86%E6%9E%90">分析</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81">参考代码</a></li>
+</ul>
+</li>
+<li><a href="#usaco-12-openbalanced-cow-subsets-g">「USACO 12 OPEN」Balanced Cow Subsets G</a>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5-2">题目链接</a></li>
+<li><a href="#%E5%88%86%E6%9E%90-2">分析</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-2">参考代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div
+      class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200"
+      @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cjwen6.cn/media/scripts/main.js"></script>
+
+    <!-- Code Highlight -->
+    
+      <script src="https://cjwen6.cn/media/prism.js"></script>
+      <script>
+        Prism.highlightAll()
+      </script>
+      
+
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+        <script>
+          //拿到预览框架，也就是上面的html代码
+          var pswpElement = document.querySelectorAll('.pswp')[0];
+          //定义图片数组变量
+          var imgitems;
+          /**
+          * 用于显示预览界面
+          * @param index 图片数组下标
+          */
+          function viewImg(index) {
+            //其它选项这里不做过多阐述，详情见官网
+            var pswpoptions = {
+              index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+              bgOpacity: 0.7, // 背景透明度，0-1
+              maxSpreadZoom: 3, // 缩放级别，不要太大
+            };
+            //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+            gallery.init()
+          }
+          /**
+          * 用于添加图片点击事件
+          * @param img 图片元素
+          * @param index 所属下标（在imgitems中的位置）
+          */
+          function addImgClick(img, index) {
+            img.onclick = function () {
+              viewImg(index)
+            }
+          }
+          /**
+          * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+          * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+          * 异步加载图片可在图片元素创建完成后调用此方法
+          */
+          function initImg() {
+            //重置图片数组
+            imgitems = [];
+            //查找class:markdown 下的所有img元素并遍历
+            var imgs = document.querySelectorAll('.markdown img');
+            for (var i = 0; i < imgs.length; i++) {
+              var img = imgs[i];
+              //本站相册初始为loading图片，真实图片放在data-src
+              var ds = img.getAttribute("data-src");
+              //创建image对象，用于获取图片宽高
+              var imgtemp = new Image();
+              //判断是否存在data-src
+              if (ds != null && ds.length > 0) {
+                imgtemp.src = ds
+              } else {
+                imgtemp.src = img.src
+              }
+              //判断是否存在缓存
+              if (imgtemp.complete) {
+                var imgobj = {
+                  "src": imgtemp.src,
+                  "w": imgtemp.width,
+                  "h": imgtemp.height,
+                };
+                imgitems[i] = imgobj;
+                addImgClick(img, i);
+              } else {
+                console.log('进来了2')
+                imgtemp.index = i;
+                imgtemp.img = img;
+                imgtemp.onload = function () {
+                  var imgobj = {
+                    "src": this.src,
+                    "w": this.width,
+                    "h": this.height,
+                  };
+                  //不要使用push，因为onload前后顺序会不同
+                  imgitems[this.index] = imgobj
+                  //添加点击事件
+                  addImgClick(this.img, this.index);
+                }
+              }
+            }
+          }
+          //初始化
+          initImg();
+        </script>
+        
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: '777e3f2c1277f7b20337',
+    clientSecret: '7135e05ea2073505f473d3d982a48a1397ecb5a0',
+    repo: 'blog-gitalk',
+    owner: 'cjwen6',
+    admin: ['cjwen6'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                    
+                      
+</body>
+
+</html>

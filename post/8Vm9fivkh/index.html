@@ -1,0 +1,405 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>简单图论 - cjwen6&#39;s blog</title>
+<link rel="shortcut icon" href="https://cjwen6.cn/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cjwen6.cn/media/css/tailwind.css">
+<link rel="stylesheet" href="https://cjwen6.cn/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="简单图论 - cjwen6&#39;s blog - Atom Feed" href="https://cjwen6.cn/atom.xml">
+
+
+
+<script async src="https://cjwen-ackee.vercel.app/tracker.js" data-ackee-server="https://cjwen-ackee.vercel.app" data-ackee-domain-id="dbd96cf9-8edb-42d7-9a22-a7a1751dd8eb"></script>
+    <meta name="description" content="0x00 图论相关概念
+一、图的概念
+图是一个二元组，由 点集 (Node set) 和 边集 (Edge set) 组成，即 G=(V(G),E(G))G = (V(G), E(G))G=(V(G),E(G))。
+常用 G=(V,E)G ..." />
+    <meta property="og:title" content="简单图论 - cjwen6&#39;s blog">
+    <meta property="og:description" content="0x00 图论相关概念
+一、图的概念
+图是一个二元组，由 点集 (Node set) 和 边集 (Edge set) 组成，即 G=(V(G),E(G))G = (V(G), E(G))G=(V(G),E(G))。
+常用 G=(V,E)G ..." />
+    <meta property="og:type" content="articles">
+    <meta property="og:url" content="https://cjwen6.cn/post/8Vm9fivkh/" />
+    <meta property="og:image"
+      content="https://cjwen6.cn/images/avatar.png">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta name="twitter:title" content="简单图论 - cjwen6&#39;s blog">
+    <meta name="twitter:description" content="0x00 图论相关概念
+一、图的概念
+图是一个二元组，由 点集 (Node set) 和 边集 (Edge set) 组成，即 G=(V(G),E(G))G = (V(G), E(G))G=(V(G),E(G))。
+常用 G=(V,E)G ...">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://cjwen6.cn/post/8Vm9fivkh/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+
+    
+      <link rel="stylesheet"
+        href="https://cjwen6.cn/media/css/prism-atom-dark.css">
+      
+
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+          
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://cjwen6.cn"
+      class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      cjwen6&#39;s blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div
+        class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          简单图论
+        </h1>
+        
+            <div class="mb-8 flex-wrap">
+              <div id="/post/8Vm9fivkh/" class="text-gray-400 text-sm mr-4 leancloud_visitors">
+                2021-10-01 · 3 min read
+                    <br>
+
+                    
+              </div>
+            </div>
+            <div class="markdown mb-8" v-pre>
+              <h2 id="0x00-图论相关概念">0x00 图论相关概念</h2>
+<h3 id="一-图的概念">一、图的概念</h3>
+<p>图是一个二元组，由 <code>点集 (Node set)</code> 和 <code>边集 (Edge set)</code> 组成，即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>=</mo><mo>(</mo><mi>V</mi><mo>(</mo><mi>G</mi><mo>)</mo><mo separator="true">,</mo><mi>E</mi><mo>(</mo><mi>G</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">G = (V(G), E(G))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathdefault">G</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathdefault">G</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>。<br>
+常用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>=</mo><mo>(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">G = (V, E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span> 表示图。</p>
+<h3 id="二-图的分类">二、图的分类</h3>
+<p><strong>自环 (Loop)</strong>：对 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span></span></span></span> 中的边 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mo>=</mo><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">e = (u, v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>，若 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo>=</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u = v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>，则 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi></mrow><annotation encoding="application/x-tex">e</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">e</span></span></span></span> 被称作一个自环。</p>
+<p><strong>重边 (Multiple edge)</strong>：若 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span></span></span></span> 中存在两个完全相同的元素（边）<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">e_{1}, e_{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，则它们被称作（一组）重边。</p>
+<p>若一个图中有自环或重边，它被称为 <code>多重图 (Multigraph)</code>，否则被称为 <code>简单图 (Simple graph)</code>。</p>
+<h3 id="三-点的度数">三、点的度数</h3>
+<p>与一个顶点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 关联的边的条数称作该顶点的 <code>度 (Degree)</code>，记作 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mo>(</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">d(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>。特别地，对于边 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>v</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(v, v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>，即自环，则每条这样的边要对 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mo>(</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">d(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span> 产生 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 的贡献。</p>
+<p>在有向图 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>=</mo><mo>(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">G = (V, E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span> 中，以一个顶点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 为起点的边的条数称为该顶点的 <code>出度 (Out-degree)</code>，记作 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>d</mi><mo>+</mo></msup><mo>(</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">d^{+}(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.021331em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>。以一个顶点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 为终点的边的条数称为该节点的 <code>入度 (In-degree)</code>，记作 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>d</mi><mo>−</mo></msup><mo>(</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">d^{-}(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.021331em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>。显然 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>d</mi><mo>+</mo></msup><mo>(</mo><mi>v</mi><mo>)</mo><mo>+</mo><msup><mi>d</mi><mo>−</mo></msup><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mi>d</mi><mo>(</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">d^{+}(v) + d^{-}(v) = d(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.021331em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.021331em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>。</p>
+<p>更多图论相关概念：<a href="https://oiwiki.com/graph/concept/">图论相关概念 - OI Wiki</a></p>
+<h2 id="0x01-图的存储">0x01 图的存储</h2>
+<p>常用的图的存储方式有以下几种：</p>
+<ol>
+<li>邻接矩阵</li>
+<li>邻接表</li>
+<li>链式前向星</li>
+</ol>
+<h3 id="一-邻接矩阵">一、邻接矩阵</h3>
+<h4 id="存储方法">存储方法</h4>
+<p>使用 <code>g[][]</code> 存储图，若 <code>g[u][v]</code> 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span> 则代表有一条从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 的边。若为带边权的图，则使用 <code>g[u][v]</code> 存储从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 的边的边权。</p>
+<p>若为无向图，则 <code>g[][]</code> 斜对称，即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>[</mo><mi>u</mi><mo>]</mo><mo>[</mo><mi>v</mi><mo>]</mo><mo>=</mo><mi>g</mi><mo>[</mo><mi>v</mi><mo>]</mo><mo>[</mo><mi>u</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">g[u][v] = g[v][u]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span></span></span></span>。</p>
+<h4 id="参考代码以有向带边权图为例">参考代码（以有向带边权图为例）</h4>
+<pre><code class="language-cpp">int g[N][N];
+bool vis[N][N];
+
+void add_edge(int u, int v, int w){
+	g[u][v] = w;
+	// g[v][u] = w;    若为无向图则加上这一句 
+}
+
+void dfs(int x) {
+	vis[x] = true;
+	for(int y = 1; y &lt;= n; v++) {
+		if(g[x][y] &amp;&amp; !vis[x]){
+			dfs(y);
+		}
+	}
+}
+</code></pre>
+<h4 id="复杂度">复杂度</h4>
+<p>遍历图的时间复杂度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^{2})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><br>
+空间复杂度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^{2})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<h3 id="二-邻接表">二、邻接表</h3>
+<h4 id="存储方法一">存储方法一</h4>
+<p>使用 <code>g[][]</code> 存储图，若 <code>g[u][v]</code> 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span> 则代表有一条从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 的边。若为带边权的图，则使用 <code>g[u][v]</code> 存储从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span> 的边的边权。</p>
+<h4 id="存储方法二">存储方法二</h4>
+<h4 id="复杂度-2">复杂度</h4>
+<p>遍历图的时间复杂度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^{2})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><br>
+空间复杂度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^{2})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+
+            </div>
+            <!-- Share to Twitter, Weibo, Telegram -->
+            <div class="flex items-center">
+              <div class="mr-4 flex items-center">
+                <i class="ri-share-forward-line text-gray-500"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTwitter">
+                <i class="ri-twitter-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToWeibo">
+                <i class="ri-weibo-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTelegram">
+                <i class="ri-telegram-line"></i>
+              </div>
+            </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+          
+
+            
+                  
+
+                    
+
+                        <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Copyright © 2021~2022 <a href="/">cjwen6</a>
+</footer>
+
+<script type="text/javascript">
+  a=document.getElementsByTagName("a");for(var i = 0; i < a.length; i++)if(a[i].title == "站长统计")a[i].remove();
+</script>
+    </div>
+
+    <!-- TOC Container -->
+    <div
+      class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight"
+      @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div
+      class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast"
+      :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div
+          class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast"
+          @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#0x00-%E5%9B%BE%E8%AE%BA%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5">0x00 图论相关概念</a>
+<ul>
+<li><a href="#%E4%B8%80-%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5">一、图的概念</a></li>
+<li><a href="#%E4%BA%8C-%E5%9B%BE%E7%9A%84%E5%88%86%E7%B1%BB">二、图的分类</a></li>
+<li><a href="#%E4%B8%89-%E7%82%B9%E7%9A%84%E5%BA%A6%E6%95%B0">三、点的度数</a></li>
+</ul>
+</li>
+<li><a href="#0x01-%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8">0x01 图的存储</a>
+<ul>
+<li><a href="#%E4%B8%80-%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5">一、邻接矩阵</a>
+<ul>
+<li><a href="#%E5%AD%98%E5%82%A8%E6%96%B9%E6%B3%95">存储方法</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81%E4%BB%A5%E6%9C%89%E5%90%91%E5%B8%A6%E8%BE%B9%E6%9D%83%E5%9B%BE%E4%B8%BA%E4%BE%8B">参考代码（以有向带边权图为例）</a></li>
+<li><a href="#%E5%A4%8D%E6%9D%82%E5%BA%A6">复杂度</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-%E9%82%BB%E6%8E%A5%E8%A1%A8">二、邻接表</a>
+<ul>
+<li><a href="#%E5%AD%98%E5%82%A8%E6%96%B9%E6%B3%95%E4%B8%80">存储方法一</a></li>
+<li><a href="#%E5%AD%98%E5%82%A8%E6%96%B9%E6%B3%95%E4%BA%8C">存储方法二</a></li>
+<li><a href="#%E5%A4%8D%E6%9D%82%E5%BA%A6-2">复杂度</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div
+      class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200"
+      @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cjwen6.cn/media/scripts/main.js"></script>
+
+    <!-- Code Highlight -->
+    
+      <script src="https://cjwen6.cn/media/prism.js"></script>
+      <script>
+        Prism.highlightAll()
+      </script>
+      
+
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+        <script>
+          //拿到预览框架，也就是上面的html代码
+          var pswpElement = document.querySelectorAll('.pswp')[0];
+          //定义图片数组变量
+          var imgitems;
+          /**
+          * 用于显示预览界面
+          * @param index 图片数组下标
+          */
+          function viewImg(index) {
+            //其它选项这里不做过多阐述，详情见官网
+            var pswpoptions = {
+              index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+              bgOpacity: 0.7, // 背景透明度，0-1
+              maxSpreadZoom: 3, // 缩放级别，不要太大
+            };
+            //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+            gallery.init()
+          }
+          /**
+          * 用于添加图片点击事件
+          * @param img 图片元素
+          * @param index 所属下标（在imgitems中的位置）
+          */
+          function addImgClick(img, index) {
+            img.onclick = function () {
+              viewImg(index)
+            }
+          }
+          /**
+          * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+          * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+          * 异步加载图片可在图片元素创建完成后调用此方法
+          */
+          function initImg() {
+            //重置图片数组
+            imgitems = [];
+            //查找class:markdown 下的所有img元素并遍历
+            var imgs = document.querySelectorAll('.markdown img');
+            for (var i = 0; i < imgs.length; i++) {
+              var img = imgs[i];
+              //本站相册初始为loading图片，真实图片放在data-src
+              var ds = img.getAttribute("data-src");
+              //创建image对象，用于获取图片宽高
+              var imgtemp = new Image();
+              //判断是否存在data-src
+              if (ds != null && ds.length > 0) {
+                imgtemp.src = ds
+              } else {
+                imgtemp.src = img.src
+              }
+              //判断是否存在缓存
+              if (imgtemp.complete) {
+                var imgobj = {
+                  "src": imgtemp.src,
+                  "w": imgtemp.width,
+                  "h": imgtemp.height,
+                };
+                imgitems[i] = imgobj;
+                addImgClick(img, i);
+              } else {
+                console.log('进来了2')
+                imgtemp.index = i;
+                imgtemp.img = img;
+                imgtemp.onload = function () {
+                  var imgobj = {
+                    "src": this.src,
+                    "w": this.width,
+                    "h": this.height,
+                  };
+                  //不要使用push，因为onload前后顺序会不同
+                  imgitems[this.index] = imgobj
+                  //添加点击事件
+                  addImgClick(this.img, this.index);
+                }
+              }
+            }
+          }
+          //初始化
+          initImg();
+        </script>
+        
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: '777e3f2c1277f7b20337',
+    clientSecret: '7135e05ea2073505f473d3d982a48a1397ecb5a0',
+    repo: 'blog-gitalk',
+    owner: 'cjwen6',
+    admin: ['cjwen6'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                    
+                      
+</body>
+
+</html>

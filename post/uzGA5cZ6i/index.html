@@ -1,0 +1,497 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>「题解」佳佳的魔法药水 - cjwen6&#39;s blog</title>
+<link rel="shortcut icon" href="https://cjwen6.cn/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cjwen6.cn/media/css/tailwind.css">
+<link rel="stylesheet" href="https://cjwen6.cn/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="「题解」佳佳的魔法药水 - cjwen6&#39;s blog - Atom Feed" href="https://cjwen6.cn/atom.xml">
+
+
+
+<script async src="https://cjwen-ackee.vercel.app/tracker.js" data-ackee-server="https://cjwen-ackee.vercel.app" data-ackee-domain-id="dbd96cf9-8edb-42d7-9a22-a7a1751dd8eb"></script>
+    <meta name="description" content="题目链接
+Luogu P1875 佳佳的魔法药水
+分析
+初始的时候每个点的 disdisdis 为本身花费，ansansans 为 111。
+读入 a,b,ca, b, ca,b,c，则分别连 a⇒disbc,b⇒disaca \stack..." />
+    <meta property="og:title" content="「题解」佳佳的魔法药水 - cjwen6&#39;s blog">
+    <meta property="og:description" content="题目链接
+Luogu P1875 佳佳的魔法药水
+分析
+初始的时候每个点的 disdisdis 为本身花费，ansansans 为 111。
+读入 a,b,ca, b, ca,b,c，则分别连 a⇒disbc,b⇒disaca \stack..." />
+    <meta property="og:type" content="articles">
+    <meta property="og:url" content="https://cjwen6.cn/post/uzGA5cZ6i/" />
+    <meta property="og:image"
+      content="https://cjwen6.cn/images/avatar.png">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta name="twitter:title" content="「题解」佳佳的魔法药水 - cjwen6&#39;s blog">
+    <meta name="twitter:description" content="题目链接
+Luogu P1875 佳佳的魔法药水
+分析
+初始的时候每个点的 disdisdis 为本身花费，ansansans 为 111。
+读入 a,b,ca, b, ca,b,c，则分别连 a⇒disbc,b⇒disaca \stack...">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://cjwen6.cn/post/uzGA5cZ6i/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+
+    
+      <link rel="stylesheet"
+        href="https://cjwen6.cn/media/css/prism-atom-dark.css">
+      
+
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+          
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://cjwen6.cn"
+      class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      cjwen6&#39;s blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div
+        class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          「题解」佳佳的魔法药水
+        </h1>
+        
+            <div class="mb-8 flex-wrap">
+              <div id="/post/uzGA5cZ6i/" class="text-gray-400 text-sm mr-4 leancloud_visitors">
+                2022-02-26 · 4 min read
+                    <br>
+
+                    
+                      <a href="https://cjwen6.cn/tag/zui-duan-lu/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        最短路
+                      </a>
+                      
+                      <a href="https://cjwen6.cn/tag/ti-jie/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        题解
+                      </a>
+                      
+              </div>
+            </div>
+            <div class="markdown mb-8" v-pre>
+              <h2 id="题目链接">题目链接</h2>
+<p><a href="https://www.luogu.com.cn/problem/P1875">Luogu P1875 佳佳的魔法药水</a></p>
+<h2 id="分析">分析</h2>
+<p>初始的时候每个点的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">dis</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span></span></span></span> 为本身花费，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">ans</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span> 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</p>
+<p>读入 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">a, b, c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span></span></span></span>，则分别连 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><msup><mo><mo>⇒</mo></mo><mrow><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>b</mi></msub></mrow></msup><mi>c</mi><mo separator="true">,</mo><mi>b</mi><msup><mo><mo>⇒</mo></mo><mrow><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>a</mi></msub></mrow></msup><mi>c</mi></mrow><annotation encoding="application/x-tex">a \stackrel{dis_{b}}{ \Rightarrow}c, b \stackrel{dis_{a}}{ \Rightarrow}c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.169838em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mop op-limits"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.169838em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">⇒</span></span></span><span style="top:-3.5837299999999996em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">i</span><span class="mord mtight"><span class="mord mathdefault mtight">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.358518em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mop op-limits"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.164078em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">⇒</span></span></span><span style="top:-3.5779699999999997em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">i</span><span class="mord mtight"><span class="mord mathdefault mtight">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span>，注意边权不要直接存，因为之后 dis 的数据有可能改变。</p>
+<p>接下来跑 dijkstra，不同的地方在于更新的时候要两个药水都是已确定。</p>
+<p>vector 过不了 hack 数据，不知道为什么，二维数组可以过。</p>
+<h2 id="参考代码">参考代码</h2>
+<p>vector：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+#include&lt;queue&gt;
+
+using namespace std;
+
+const int N = 1e3 + 10;
+
+int n;
+int a, b, c;
+long long dis[N]; // 最短路长度
+long long ans[N]; // 计数
+bool v[N]; // 是否已确定
+
+struct edge{
+	int to;
+	int w;
+};
+
+vector &lt;edge&gt; g[N];
+
+pair &lt;long long, int&gt; t; 
+
+priority_queue &lt;pair&lt;long long, int&gt;, vector&lt;pair&lt;long long, int&gt; &gt;, greater&lt;pair&lt;long long, int&gt; &gt; &gt; q;
+
+int main(){
+	
+	scanf(&quot;%d&quot;, &amp;n);
+	
+	for(int i = 0; i &lt; n; i++){
+		scanf(&quot;%lld&quot;, &amp;dis[i]);
+		ans[i] = 1;
+		q.push(make_pair(dis[i], i));
+	}
+	
+	while(scanf(&quot;%d%d%d&quot;, &amp;a, &amp;b, &amp;c) != EOF){
+		g[a].push_back({c, b});
+		if(a != b){ // 防止 A, B 相同的毒瘤数据
+			g[b].push_back({c, a});
+		}
+	}
+	
+	while(!q.empty()){ // dijkstra
+		t = q.top();
+		q.pop();
+		
+		if(v[t.second]){
+			continue;
+		}
+		
+		v[t.second] = 1;
+		
+		for(auto i : g[t.second]){
+			if(v[i.w]){ // 注意此处待合成的另一瓶药水也要已确定
+				if(t.first + dis[i.w] == dis[i.to]){
+					ans[i.to] += ans[t.second] * ans[i.w];
+				}else{
+					if(t.first + dis[i.w] &lt; dis[i.to]){
+						dis[i.to] = t.first + dis[i.w];
+						ans[i.to] = ans[t.second] * ans[i.w];
+						q.push(make_pair(dis[i.to], i.to));
+					}
+				}
+			}
+		}
+	}
+	
+	printf(&quot;%lld %lld\n&quot;, dis[0], ans[0]);
+	
+	return 0;
+}
+</code></pre>
+<p>二维数组：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;queue&gt;
+#include&lt;cstring&gt;
+
+using namespace std;
+
+const int N = 1e3 + 10;
+
+int n;
+int a, b, c;
+long long dis[N];
+long long ans[N];
+bool v[N];
+
+int f[N][N]; // f[i][j] 为 i 和 j 可以合成的药水，不能合成则为 -1
+
+pair &lt;long long, int&gt; t; 
+
+priority_queue &lt;pair&lt;long long, int&gt;, vector&lt;pair&lt;long long, int&gt; &gt;, greater&lt;pair&lt;long long, int&gt; &gt; &gt; q;
+
+int main(){
+	
+	scanf(&quot;%d&quot;, &amp;n);
+	
+	for(int i = 0; i &lt; n; i++){
+		scanf(&quot;%lld&quot;, &amp;dis[i]);
+		ans[i] = 1;
+		q.push(make_pair(dis[i], i));
+	}
+	
+	memset(f, -1, sizeof(f));
+	
+	while(scanf(&quot;%d%d%d&quot;, &amp;a, &amp;b, &amp;c) != EOF){
+		f[a][b] = f[b][a] = c;
+	}
+	
+	while(!q.empty()){
+		t = q.top();
+		q.pop();
+		
+		if(v[t.second]){
+			continue;
+		}
+		
+		v[t.second] = 1;
+		
+		for(int i = 0; i &lt; n; i++){
+			if(f[t.second][i] != -1 &amp;&amp; v[i]){
+				if(t.first + dis[i] == dis[f[t.second][i]]){
+					ans[f[t.second][i]] += ans[t.second] * ans[i];
+				}else{
+					if(t.first + dis[i] &lt; dis[f[t.second][i]]){
+						dis[f[t.second][i]] = t.first + dis[i];
+						ans[f[t.second][i]] = ans[t.second] * ans[i];
+						q.push(make_pair(dis[f[t.second][i]], f[t.second][i]));
+					}
+				}
+			}
+		}
+	}
+	
+	printf(&quot;%lld %lld\n&quot;, dis[0], ans[0]);
+	
+	return 0;
+}
+</code></pre>
+
+            </div>
+            <!-- Share to Twitter, Weibo, Telegram -->
+            <div class="flex items-center">
+              <div class="mr-4 flex items-center">
+                <i class="ri-share-forward-line text-gray-500"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTwitter">
+                <i class="ri-twitter-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToWeibo">
+                <i class="ri-weibo-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTelegram">
+                <i class="ri-telegram-line"></i>
+              </div>
+            </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+          
+
+            
+                  
+
+                    
+
+                        <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Copyright © 2021~2022 <a href="/">cjwen6</a>
+</footer>
+
+<script type="text/javascript">
+  a=document.getElementsByTagName("a");for(var i = 0; i < a.length; i++)if(a[i].title == "站长统计")a[i].remove();
+</script>
+    </div>
+
+    <!-- TOC Container -->
+    <div
+      class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight"
+      @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div
+      class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast"
+      :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div
+          class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast"
+          @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5">题目链接</a></li>
+<li><a href="#%E5%88%86%E6%9E%90">分析</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81">参考代码</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div
+      class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200"
+      @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cjwen6.cn/media/scripts/main.js"></script>
+
+    <!-- Code Highlight -->
+    
+      <script src="https://cjwen6.cn/media/prism.js"></script>
+      <script>
+        Prism.highlightAll()
+      </script>
+      
+
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+        <script>
+          //拿到预览框架，也就是上面的html代码
+          var pswpElement = document.querySelectorAll('.pswp')[0];
+          //定义图片数组变量
+          var imgitems;
+          /**
+          * 用于显示预览界面
+          * @param index 图片数组下标
+          */
+          function viewImg(index) {
+            //其它选项这里不做过多阐述，详情见官网
+            var pswpoptions = {
+              index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+              bgOpacity: 0.7, // 背景透明度，0-1
+              maxSpreadZoom: 3, // 缩放级别，不要太大
+            };
+            //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+            gallery.init()
+          }
+          /**
+          * 用于添加图片点击事件
+          * @param img 图片元素
+          * @param index 所属下标（在imgitems中的位置）
+          */
+          function addImgClick(img, index) {
+            img.onclick = function () {
+              viewImg(index)
+            }
+          }
+          /**
+          * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+          * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+          * 异步加载图片可在图片元素创建完成后调用此方法
+          */
+          function initImg() {
+            //重置图片数组
+            imgitems = [];
+            //查找class:markdown 下的所有img元素并遍历
+            var imgs = document.querySelectorAll('.markdown img');
+            for (var i = 0; i < imgs.length; i++) {
+              var img = imgs[i];
+              //本站相册初始为loading图片，真实图片放在data-src
+              var ds = img.getAttribute("data-src");
+              //创建image对象，用于获取图片宽高
+              var imgtemp = new Image();
+              //判断是否存在data-src
+              if (ds != null && ds.length > 0) {
+                imgtemp.src = ds
+              } else {
+                imgtemp.src = img.src
+              }
+              //判断是否存在缓存
+              if (imgtemp.complete) {
+                var imgobj = {
+                  "src": imgtemp.src,
+                  "w": imgtemp.width,
+                  "h": imgtemp.height,
+                };
+                imgitems[i] = imgobj;
+                addImgClick(img, i);
+              } else {
+                console.log('进来了2')
+                imgtemp.index = i;
+                imgtemp.img = img;
+                imgtemp.onload = function () {
+                  var imgobj = {
+                    "src": this.src,
+                    "w": this.width,
+                    "h": this.height,
+                  };
+                  //不要使用push，因为onload前后顺序会不同
+                  imgitems[this.index] = imgobj
+                  //添加点击事件
+                  addImgClick(this.img, this.index);
+                }
+              }
+            }
+          }
+          //初始化
+          initImg();
+        </script>
+        
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: '777e3f2c1277f7b20337',
+    clientSecret: '7135e05ea2073505f473d3d982a48a1397ecb5a0',
+    repo: 'blog-gitalk',
+    owner: 'cjwen6',
+    admin: ['cjwen6'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                    
+                      
+</body>
+
+</html>

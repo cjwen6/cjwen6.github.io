@@ -1,0 +1,384 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>延安 CSP-S 模拟赛总结 - cjwen6&#39;s blog</title>
+<link rel="shortcut icon" href="https://cjwen6.cn/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cjwen6.cn/media/css/tailwind.css">
+<link rel="stylesheet" href="https://cjwen6.cn/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="延安 CSP-S 模拟赛总结 - cjwen6&#39;s blog - Atom Feed" href="https://cjwen6.cn/atom.xml">
+
+
+
+<script async src="https://cjwen-ackee.vercel.app/tracker.js" data-ackee-server="https://cjwen-ackee.vercel.app" data-ackee-domain-id="dbd96cf9-8edb-42d7-9a22-a7a1751dd8eb"></script>
+    <meta name="description" content="YAOI Round #10 (Div.1)
+B. 简单的计算（solve）
+分块都能打到超时。。。原因未知
+C. 以魔法击碎字符串 (magic)
+
+🙃🙃🙃🙃🙃
+D. 走路 (foot)
+输出 -1 骗分，拿 202020。
+Y..." />
+    <meta property="og:title" content="延安 CSP-S 模拟赛总结 - cjwen6&#39;s blog">
+    <meta property="og:description" content="YAOI Round #10 (Div.1)
+B. 简单的计算（solve）
+分块都能打到超时。。。原因未知
+C. 以魔法击碎字符串 (magic)
+
+🙃🙃🙃🙃🙃
+D. 走路 (foot)
+输出 -1 骗分，拿 202020。
+Y..." />
+    <meta property="og:type" content="articles">
+    <meta property="og:url" content="https://cjwen6.cn/post/aTe9iW-i2/" />
+    <meta property="og:image"
+      content="https://cjwen6.cn/images/avatar.png">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta name="twitter:title" content="延安 CSP-S 模拟赛总结 - cjwen6&#39;s blog">
+    <meta name="twitter:description" content="YAOI Round #10 (Div.1)
+B. 简单的计算（solve）
+分块都能打到超时。。。原因未知
+C. 以魔法击碎字符串 (magic)
+
+🙃🙃🙃🙃🙃
+D. 走路 (foot)
+输出 -1 骗分，拿 202020。
+Y...">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://cjwen6.cn/post/aTe9iW-i2/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+
+    
+      <link rel="stylesheet"
+        href="https://cjwen6.cn/media/css/prism-atom-dark.css">
+      
+
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+          
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://cjwen6.cn"
+      class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      cjwen6&#39;s blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div
+        class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          延安 CSP-S 模拟赛总结
+        </h1>
+        
+            <div class="mb-8 flex-wrap">
+              <div id="/post/aTe9iW-i2/" class="text-gray-400 text-sm mr-4 leancloud_visitors">
+                2021-10-05 · 1 min read
+                    <br>
+
+                    
+                      <a href="https://cjwen6.cn/tag/mo-ni-sai/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        模拟赛
+                      </a>
+                      
+              </div>
+            </div>
+            <div class="markdown mb-8" v-pre>
+              <h2 id="yaoi-round-10-div1"><a href="http://47.110.12.131:9016/contest/40">YAOI Round #10 (Div.1)</a></h2>
+<h3 id="b-简单的计算solve"><a href="http://47.110.12.131:9016/contest/40/problem/2">B. 简单的计算（solve）</a></h3>
+<p>分块都能打到超时。。。原因未知</p>
+<h3 id="c-以魔法击碎字符串-magic"><a href="http://47.110.12.131:9016/contest/40/problem/3">C. 以魔法击碎字符串 (magic)</a></h3>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2021/10/05/txBZDCfkS1hEyod.png" alt="" loading="lazy"></figure>
+<p>🙃🙃🙃🙃🙃</p>
+<h3 id="d-走路-foot"><a href="http://47.110.12.131:9016/contest/40/problem/4">D. 走路 (foot)</a></h3>
+<p>输出 <code>-1</code> 骗分，拿 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>20</mn></mrow><annotation encoding="application/x-tex">20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span></span></span></span>。</p>
+<h2 id="yaoi-round-11-div1"><a href="http://47.110.12.131:9016/contest/41">YAOI Round #11 (Div.1)</a></h2>
+<h3 id="a-爱能做到的还有什么"><a href="http://47.110.12.131:9016/contest/41/problem/1">A. 爱能做到的还有什么</a></h3>
+<p>重大失误。。。没有将每一个点与所有点比较，只把它与前面所有点比较，出现例如 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo>)</mo><mo>(</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo>)</mo><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(1, 1) (2, 2) (1, 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 之类数据则无法通过。</p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2021/10/05/8kPqCSnej5aONLx.png" alt="" loading="lazy"></figure>
+<h3 id="b-紧紧握住的双手"><a href="http://47.110.12.131:9016/contest/41/problem/2">B. 紧紧握住的双手</a></h3>
+<p>直接最长路，拿 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>25</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">25\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">%</span></span></span></span> 的分。</p>
+<h3 id="c-即便如此"><a href="http://47.110.12.131:9016/contest/41/problem/3">C. 即便如此</a></h3>
+<p>拓扑排序 + 贪心，本来满分，后来被出题人卡了。</p>
+<h3 id="d-为了那个梦我们扬帆起航"><a href="http://47.110.12.131:9016/contest/41/problem/4">D. 为了那个梦我们扬帆起航</a></h3>
+<p>类似 <code>SPFA</code>，做的时候就想着只拿部分分，没想到满分了，后来也被出题人卡了。</p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2021/10/05/Grg4nLJTMwQsAh8.png" alt="" loading="lazy"></figure>
+
+            </div>
+            <!-- Share to Twitter, Weibo, Telegram -->
+            <div class="flex items-center">
+              <div class="mr-4 flex items-center">
+                <i class="ri-share-forward-line text-gray-500"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTwitter">
+                <i class="ri-twitter-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToWeibo">
+                <i class="ri-weibo-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTelegram">
+                <i class="ri-telegram-line"></i>
+              </div>
+            </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+          
+
+            
+                  
+
+                    
+
+                        <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Copyright © 2021~2022 <a href="/">cjwen6</a>
+</footer>
+
+<script type="text/javascript">
+  a=document.getElementsByTagName("a");for(var i = 0; i < a.length; i++)if(a[i].title == "站长统计")a[i].remove();
+</script>
+    </div>
+
+    <!-- TOC Container -->
+    <div
+      class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight"
+      @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div
+      class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast"
+      :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div
+          class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast"
+          @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#yaoi-round-10-div1">YAOI Round #10 (Div.1)</a>
+<ul>
+<li><a href="#b-%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E7%AE%97solve">B. 简单的计算（solve）</a></li>
+<li><a href="#c-%E4%BB%A5%E9%AD%94%E6%B3%95%E5%87%BB%E7%A2%8E%E5%AD%97%E7%AC%A6%E4%B8%B2-magic">C. 以魔法击碎字符串 (magic)</a></li>
+<li><a href="#d-%E8%B5%B0%E8%B7%AF-foot">D. 走路 (foot)</a></li>
+</ul>
+</li>
+<li><a href="#yaoi-round-11-div1">YAOI Round #11 (Div.1)</a>
+<ul>
+<li><a href="#a-%E7%88%B1%E8%83%BD%E5%81%9A%E5%88%B0%E7%9A%84%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88">A. 爱能做到的还有什么</a></li>
+<li><a href="#b-%E7%B4%A7%E7%B4%A7%E6%8F%A1%E4%BD%8F%E7%9A%84%E5%8F%8C%E6%89%8B">B. 紧紧握住的双手</a></li>
+<li><a href="#c-%E5%8D%B3%E4%BE%BF%E5%A6%82%E6%AD%A4">C. 即便如此</a></li>
+<li><a href="#d-%E4%B8%BA%E4%BA%86%E9%82%A3%E4%B8%AA%E6%A2%A6%E6%88%91%E4%BB%AC%E6%89%AC%E5%B8%86%E8%B5%B7%E8%88%AA">D. 为了那个梦我们扬帆起航</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div
+      class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200"
+      @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cjwen6.cn/media/scripts/main.js"></script>
+
+    <!-- Code Highlight -->
+    
+      <script src="https://cjwen6.cn/media/prism.js"></script>
+      <script>
+        Prism.highlightAll()
+      </script>
+      
+
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+        <script>
+          //拿到预览框架，也就是上面的html代码
+          var pswpElement = document.querySelectorAll('.pswp')[0];
+          //定义图片数组变量
+          var imgitems;
+          /**
+          * 用于显示预览界面
+          * @param index 图片数组下标
+          */
+          function viewImg(index) {
+            //其它选项这里不做过多阐述，详情见官网
+            var pswpoptions = {
+              index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+              bgOpacity: 0.7, // 背景透明度，0-1
+              maxSpreadZoom: 3, // 缩放级别，不要太大
+            };
+            //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+            gallery.init()
+          }
+          /**
+          * 用于添加图片点击事件
+          * @param img 图片元素
+          * @param index 所属下标（在imgitems中的位置）
+          */
+          function addImgClick(img, index) {
+            img.onclick = function () {
+              viewImg(index)
+            }
+          }
+          /**
+          * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+          * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+          * 异步加载图片可在图片元素创建完成后调用此方法
+          */
+          function initImg() {
+            //重置图片数组
+            imgitems = [];
+            //查找class:markdown 下的所有img元素并遍历
+            var imgs = document.querySelectorAll('.markdown img');
+            for (var i = 0; i < imgs.length; i++) {
+              var img = imgs[i];
+              //本站相册初始为loading图片，真实图片放在data-src
+              var ds = img.getAttribute("data-src");
+              //创建image对象，用于获取图片宽高
+              var imgtemp = new Image();
+              //判断是否存在data-src
+              if (ds != null && ds.length > 0) {
+                imgtemp.src = ds
+              } else {
+                imgtemp.src = img.src
+              }
+              //判断是否存在缓存
+              if (imgtemp.complete) {
+                var imgobj = {
+                  "src": imgtemp.src,
+                  "w": imgtemp.width,
+                  "h": imgtemp.height,
+                };
+                imgitems[i] = imgobj;
+                addImgClick(img, i);
+              } else {
+                console.log('进来了2')
+                imgtemp.index = i;
+                imgtemp.img = img;
+                imgtemp.onload = function () {
+                  var imgobj = {
+                    "src": this.src,
+                    "w": this.width,
+                    "h": this.height,
+                  };
+                  //不要使用push，因为onload前后顺序会不同
+                  imgitems[this.index] = imgobj
+                  //添加点击事件
+                  addImgClick(this.img, this.index);
+                }
+              }
+            }
+          }
+          //初始化
+          initImg();
+        </script>
+        
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: '777e3f2c1277f7b20337',
+    clientSecret: '7135e05ea2073505f473d3d982a48a1397ecb5a0',
+    repo: 'blog-gitalk',
+    owner: 'cjwen6',
+    admin: ['cjwen6'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                    
+                      
+</body>
+
+</html>

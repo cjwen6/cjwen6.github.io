@@ -1,0 +1,862 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>「笔记」单调栈 - cjwen6&#39;s blog</title>
+<link rel="shortcut icon" href="https://cjwen6.cn/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://cjwen6.cn/media/css/tailwind.css">
+<link rel="stylesheet" href="https://cjwen6.cn/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="「笔记」单调栈 - cjwen6&#39;s blog - Atom Feed" href="https://cjwen6.cn/atom.xml">
+
+
+
+<script async src="https://cjwen-ackee.vercel.app/tracker.js" data-ackee-server="https://cjwen-ackee.vercel.app" data-ackee-domain-id="dbd96cf9-8edb-42d7-9a22-a7a1751dd8eb"></script>
+    <meta name="description" content="栈
+栈是 OI 中常用的一种线性数据结构。
+栈的修改是按照后进先出的原则进行的，因此栈通常被称为是后进先出（last in first out）表，简称 LIFO 表。
+下文均使用名为 st ，栈底为 st[1] ，栈顶为 st[top] ..." />
+    <meta property="og:title" content="「笔记」单调栈 - cjwen6&#39;s blog">
+    <meta property="og:description" content="栈
+栈是 OI 中常用的一种线性数据结构。
+栈的修改是按照后进先出的原则进行的，因此栈通常被称为是后进先出（last in first out）表，简称 LIFO 表。
+下文均使用名为 st ，栈底为 st[1] ，栈顶为 st[top] ..." />
+    <meta property="og:type" content="articles">
+    <meta property="og:url" content="https://cjwen6.cn/post/4bwdBjtFp/" />
+    <meta property="og:image"
+      content="https://cjwen6.cn/images/avatar.png">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta name="twitter:title" content="「笔记」单调栈 - cjwen6&#39;s blog">
+    <meta name="twitter:description" content="栈
+栈是 OI 中常用的一种线性数据结构。
+栈的修改是按照后进先出的原则进行的，因此栈通常被称为是后进先出（last in first out）表，简称 LIFO 表。
+下文均使用名为 st ，栈底为 st[1] ，栈顶为 st[top] ...">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://cjwen6.cn/post/4bwdBjtFp/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+
+    
+      <link rel="stylesheet"
+        href="https://cjwen6.cn/media/css/prism-atom-dark.css">
+      
+
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+          
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://cjwen6.cn"
+      class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      cjwen6&#39;s blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div
+        class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          「笔记」单调栈
+        </h1>
+        
+            <div class="mb-8 flex-wrap">
+              <div id="/post/4bwdBjtFp/" class="text-gray-400 text-sm mr-4 leancloud_visitors">
+                2022-01-21 · 13 min read
+                    <br>
+
+                    
+                      <a href="https://cjwen6.cn/tag/bi-ji/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        笔记
+                      </a>
+                      
+                      <a href="https://cjwen6.cn/tag/dan-diao-zhan/"
+                        class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+                        <i class="ri-hashtag"></i>
+                        单调栈
+                      </a>
+                      
+              </div>
+            </div>
+            <div class="markdown mb-8" v-pre>
+              <h2 id="栈">栈</h2>
+<p>栈是 OI 中常用的一种线性数据结构。</p>
+<p>栈的修改是按照后进先出的原则进行的，因此栈通常被称为是后进先出（last in first out）表，简称 LIFO 表。</p>
+<p>下文均使用名为 <code>st</code> ，栈底为 <code>st[1]</code> ，栈顶为 <code>st[top]</code> 的数组模拟栈。</p>
+<p>这样做的好处是，操作方便：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">查询栈的大小</td>
+<td style="text-align:center"><code>top</code></td>
+</tr>
+<tr>
+<td style="text-align:center">查询栈是否为空</td>
+<td style="text-align:center"><code>top</code></td>
+</tr>
+<tr>
+<td style="text-align:center">查询栈顶元素</td>
+<td style="text-align:center"><code>st[top]</code></td>
+</tr>
+<tr>
+<td style="text-align:center">插入元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span></td>
+<td style="text-align:center"><code>st[++top] = x;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">弹出栈顶元素</td>
+<td style="text-align:center"><code>top--;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="单调栈">单调栈</h2>
+<h4 id="何为单调栈">何为单调栈</h4>
+<p>顾名思义，单调栈即满足单调性的栈结构。与单调队列相比，其只在一端进行进出。</p>
+<h4 id="严格">严格？</h4>
+<p><strong>严格不等式</strong>：只含有记号 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&lt;</mo></mrow><annotation encoding="application/x-tex">&lt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> 的不等式称为严格不等式。</p>
+<p><strong>非严格不等式</strong>：含有记号 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≤</mo></mrow><annotation encoding="application/x-tex">\leq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> 的不等式称非严格不等式。</p>
+<p>所以「严格大于」就是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span>，「严格小于」就是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&lt;</mo></mrow><annotation encoding="application/x-tex">&lt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span>。</p>
+<p>严格单调递增（减），指的是除第一个元素外，每个元素都严格大于（小于）前一个元素。</p>
+<h4 id="应用">应用</h4>
+<p>考虑这样一个问题：给定一个数列，对于每个数，求出这个数之前第一个严格大于它的数。</p>
+<p>假设该数列为：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>81</mn><mo separator="true">,</mo><mn>45</mn><mo separator="true">,</mo><mn>11</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>14</mn><mo separator="true">,</mo><mn>26</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[81,  45,  11,  0,  14,  26]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">8</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">6</span><span class="mclose">]</span></span></span></span>，依次将元素插入栈。</p>
+<p>如图 1-1，此时已插入前 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span> 个元素，下一个待插入元素为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span>。</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/cjwen6/cdn/img/monotonous-stack-before.svg" alt="" loading="lazy"></figure>
+<p><tt>图 1-1（图自 OI-Wiki）</tt></p>
+<p>为了找到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> 之前第一个比它大的元素，<strong>要维护单调性，将比 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> 小的元素弹出，于是弹出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>11</mn></mrow><annotation encoding="application/x-tex">11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span></strong></p>
+<p>如图 1-2，此时栈中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> 的前一个元素为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>45</mn></mrow><annotation encoding="application/x-tex">45</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">5</span></span></span></span>，所以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> 之前第一个大于它的元素是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>45</mn></mrow><annotation encoding="application/x-tex">45</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">5</span></span></span></span>。</p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/cjwen6/cdn/img/monotonous-stack-after.svg" alt="" loading="lazy"></figure>
+<p><tt>图 1-2（图自 OI-Wiki）</tt></p>
+<p><strong>假设下一个插入的元素为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>。</strong></p>
+<p><strong>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">14 \leq x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>，那么那么 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> 肯定不是（元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 的）答案，那么比 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> 还小的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">0, 11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span> 就更不可能是答案。</strong></p>
+<p><strong>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn><mo>&gt;</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">14 &gt; x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>，那么 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span> 就是答案，不用再考虑 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">0, 11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span>。</strong></p>
+<p><strong>所以，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">0, 11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span> 不会再对后面的答案产生贡献（影响），可以弹出。</strong></p>
+<p>借助单调性处理问题的思想在于<strong>及时排除不可能的选项，保持策略的高度有效性和秩序性</strong>，从而为我们作出决策提供更多的条件和可能的方法。</p>
+<h4 id="代码实现">代码实现</h4>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+
+using namespace std;
+
+int main(){
+	
+	int n = 6;
+	int a[6] = {81, 45, 11, 0, 14, 26}, ans[6] = { };
+	int st[6] = { }, top = 0;
+	
+	for(int i = 0; i &lt; n; i++){
+		while(top &amp;&amp; st[top] &lt;= a[i]){ // 注意要用 top 判栈是否为空，不为空才能判断
+			printf(&quot;pop %d.\n&quot;, st[top]);
+			top--;
+		}
+		
+		if(top){
+			ans[i] = st[top];
+		}else{
+			ans[i] = -1; // 前面没有比这个数大的，就输出 -1
+		}
+		
+		printf(&quot;push %d.\n&quot;, a[i]);
+		st[++top] = a[i];
+		
+		printf(&quot;stack: &quot;);
+		for(int j = 1; j &lt;= top; j++){
+			printf(&quot;%d &quot;, st[j]);
+		}
+		puts(&quot;\n&quot;);
+		
+	}
+	
+	printf(&quot;ans: &quot;);
+	for(int i = 0; i &lt; n; i++){
+		printf(&quot;%d &quot;, ans[i]);
+	}
+	
+	return 0;
+}
+</code></pre>
+<p>运行结果：</p>
+<pre><code>push 81.
+stack: 81 
+
+push 45.
+stack: 81 45 
+
+push 11.
+stack: 81 45 11 
+
+push 0.
+stack: 81 45 11 0 
+
+pop 0.
+pop 11.
+push 14.
+stack: 81 45 14 
+
+pop 14.
+push 26.
+stack: 81 45 26 
+
+ans: -1 81 45 11 45 45 
+</code></pre>
+<h4 id="时空复杂度">时空复杂度</h4>
+<p>空间复杂度显然为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+<p>观察代码核心部分：</p>
+<pre><code class="language-cpp">// ……
+for(int i = 0; i &lt; n; i++){
+	while(top &amp;&amp; st[top] &lt;= a[i]){
+		printf(&quot;pop %d.\n&quot;, st[top]);
+		top--;
+	}
+	// ……
+}
+// ……
+</code></pre>
+<p>注意里层的 <code>while</code> 循环，是用于弹出栈顶小于待插入元素的元素。</p>
+<p><strong>每个元素只入栈一次，也只会出栈一次，所以里层 <code>while</code> 循环总共只会执行 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 次，整个单调栈代码的时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</strong></p>
+<h2 id="单调栈简单应用">单调栈简单应用</h2>
+<h3 id="单调栈模板题">单调栈模板题</h3>
+<h4 id="题目链接">题目链接</h4>
+<!-- [FYMS-OI #32. 「模板」单调栈](http://47.110.12.131:9016/problem/32) -->
+<p><a href="https://www.luogu.com.cn/problem/P5788">Lougu P5788 【模板】单调栈</a></p>
+<h4 id="题意概括">题意概括</h4>
+<p>给定一个长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> 的数列，对于每个数，求出这个数之后第一个严格大于它的元素<strong>的下标</strong>。</p>
+<h4 id="分析">分析</h4>
+<p>发现正着做单调栈无法处理，考虑反着做。</p>
+<p>此时就需要维护一个<strong>严格单调递减</strong>的栈，即插入元素前把栈顶小于它的元素全部弹出。</p>
+<p>插入前如果栈为空，则答案为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，否则为栈顶元素。</p>
+<p>这题的一个要注意的点在于，要求的是元素的<strong>下标</strong>，所以栈要存储下标，而非数据。</p>
+<p>题目使用的下标为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>∼</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1 \sim n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，方便起见程序的下标也用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>∼</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1 \sim n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>。</p>
+<h4 id="参考代码">参考代码</h4>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+
+using namespace std;
+
+const int N = 3e6 + 10;
+
+int n, a[N], ans[N];
+int st[N], top;
+
+int main(){
+	
+	scanf(&quot;%d&quot;, &amp;n);
+	
+	for(int i = 1; i &lt;= n; i++){
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	
+	for(int i = n; i &gt; 0; i--){
+		while(top &amp;&amp; a[st[top]] &lt;= a[i]){
+			top--;
+		}
+		if(top){
+			ans[i] = st[top];
+		}else{
+			ans[i] = 0;
+		}
+		st[++top] = i;
+	}
+	
+	for(int i = 1; i &lt;= n; i++){
+		printf(&quot;%d &quot;, ans[i]);
+	}
+	
+	return 0;
+}
+</code></pre>
+<h3 id="bad-hair-day">Bad Hair Day</h3>
+<h4 id="题目链接-2">题目链接</h4>
+<!-- [FYMS-OI #2046. Bad Hair Day](http://47.110.12.131:9016/problem/2046) -->
+<p><a href="http://poj.org/problem?id=3250">POJ 3250 Bad Hair Day</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P2866">Luogu P2866 [USACO06NOV]Bad Hair Day S</a></p>
+<h4 id="题意概括-2">题意概括</h4>
+<p>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>(</mo><mi>N</mi><mo>≤</mo><mn>80</mn><mo separator="true">,</mo><mn>000</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">N (N \leq 80,000)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mclose">)</span></span></span></span> 头奶牛排成一队，每只奶牛有一个身高 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">h_{i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，求每只奶牛可以看到前方多少只奶牛的头发的和。</p>
+<h4 id="分析-2">分析</h4>
+<p>奶牛 A 看到了奶牛 B 的头发，就相当于奶牛 B 的头发被奶牛 A 看到了。</p>
+<p>求每只奶牛可以看见后面多少个奶牛的头发比较困难，但可以求每只奶牛的头发可以被前面多少只奶牛看见，这两个求法最终的和是一样的。</p>
+<p>于是问题就被转化为「每只奶牛的头发可以被前面多少只奶牛看见」。</p>
+<p>使用单调栈，维护一个<strong>严格单调递减</strong>的栈。</p>
+<h4 id="参考代码-2">参考代码</h4>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+
+using namespace std;
+
+const int N = 8e4 + 10;
+
+int n, x;
+int st[N], top;
+long long ans;
+
+int main(){
+	
+	scanf(&quot;%d&quot;, &amp;n);
+	
+	for(int i = 0; i &lt; n; i++){
+		scanf(&quot;%d&quot;, &amp;x);
+		while(top &amp;&amp; st[top] &lt;= x){
+			top--;
+		}
+		ans += top;
+		st[++top] = x;
+	}
+	
+	printf(&quot;%lld\n&quot;, ans);
+	
+	return 0;
+}
+</code></pre>
+<h2 id="单调栈离线处理-rmq-问题">单调栈离线处理 RMQ 问题</h2>
+<h3 id="模板st-表">「模板」ST 表</h3>
+<p>其实是 RMQ 模板题。</p>
+<h4 id="题目链接-3">题目链接</h4>
+<!-- [FYMS-OI #34. 「模板」RMQ](http://47.110.12.131:9016/problem/34) -->
+<p><a href="https://www.luogu.com.cn/problem/P3865">Luogu P3865 【模板】ST 表</a></p>
+<h4 id="题意概括-3">题意概括</h4>
+<p>给定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个数和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 组询问，每组询问有一个区间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo separator="true">,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">l, r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，求该区间最大值。</p>
+<h4 id="何为-rmq">何为 RMQ</h4>
+<p>RMQ 是英文 Range Maximum(Minimum) Query 的缩写，意思是查询区间最大（最小）值。</p>
+<p>常见算法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">算法</th>
+<th style="text-align:center">是否在线</th>
+<th style="text-align:center">预处理时间复杂度</th>
+<th style="text-align:center">单次询问时间复杂度</th>
+<th style="text-align:center">总时间复杂度</th>
+<th style="text-align:center">空间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ST 表</td>
+<td style="text-align:center">在线</td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>+</mo><mi>n</mi><mo>)</mo><mo>≈</mo><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n \log n + n) \approx O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:center">线段树</td>
+<td style="text-align:center">在线</td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo><mo>≈</mo><mi>O</mi><mo>(</mo><mi>m</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n + m \log n) \approx O(m \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:center">……</td>
+<td style="text-align:center">……</td>
+<td style="text-align:center">……</td>
+<td style="text-align:center">……</td>
+<td style="text-align:center">……</td>
+<td style="text-align:center">……</td>
+</tr>
+<tr>
+<td style="text-align:center">单调栈</td>
+<td style="text-align:center">离线</td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>log</mi><mo>⁡</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m \log m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>log</mi><mo>⁡</mo><mi>m</mi><mo>+</mo><mi>m</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo><mo>≈</mo><mi>O</mi><mo>(</mo><mi>m</mi><mi>log</mi><mo>⁡</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m \log m + m \log n) \approx O(m \log m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span></td>
+<td style="text-align:center"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<p>其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 为数组大小，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 为询问次数。</p>
+<p>详细内容可以前往 <a href="https://oiwiki.com/topic/rmq/">RMQ - OI Wiki</a> 查看。</p>
+<h4 id="在线与离线">在线与离线</h4>
+<p>如果某种算法可以即时回答每一个询问，则称该算法为<strong>在线</strong>的，否则称为<strong>离线</strong>的。</p>
+<h4 id="分析-3">分析</h4>
+<p>读入所有询问，然后按询问的右端点从小到大排序。</p>
+<p>依次处理元素，维护严格单调递减栈。</p>
+<p>如果处理到某个询问的右端点，则二分单调栈，找出栈底开始第一个下标大于此次询问的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 的元素，记录答案。</p>
+<p>详见代码注释。</p>
+<h4 id="参考代码-3">参考代码</h4>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+const int N = 1e5 + 10, M = 2e6 + 10;
+
+struct qt{
+	int id, l, r;
+}q[M]; // 结构体存储询问
+
+int n, a[N], m;
+int st[N], top;
+int ans[M];
+
+bool cmp(qt x, qt y){
+	return x.r &lt; y.r;
+} // 按右端点从小到大排序
+
+int main(){
+	
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	
+	for(int i = 1; i &lt;= n; i++){
+		scanf(&quot;%d&quot;, &amp;a[i]);
+	}
+	
+	for(int i = 0; i &lt; m; i++){
+		q[i].id = i;
+		scanf(&quot;%d%d&quot;, &amp;q[i].l, &amp;q[i].r);
+	}
+	
+	sort(q, q+m, cmp);
+	
+	int nw = 0; // 当前处理的询问
+	
+	for(int i = 1; i &lt;= n &amp;&amp; nw &lt; m; i++){ // 依次处理每一个元素，插入栈中，维护严格单调递减栈
+		
+		while(top &amp;&amp; a[st[top]] &lt;= a[i]){
+			top--;
+		}
+		st[++top] = i;
+		
+		while(i == q[nw].r){ // 如果当前处理到某一个询问的右端点（因为右端点可能重复，所以用 while 而非 if）
+			
+			int l = 1, r = top; // 二分栈中第一个下标大于此次询问的 l 的元素
+			while(l &lt; r){
+				int mid = (l + r) / 2;
+				if(st[mid] &gt;= q[nw].l){
+					r = mid;
+				}else{
+					l = mid + 1;
+				}
+			}
+			ans[q[nw].id] = a[st[l]]; // 记录答案
+			
+			nw++; // 处理下一个问题
+		}
+	}
+	
+	for(int i = 0; i &lt; m; i++){
+		printf(&quot;%d\n&quot;, ans[i]);
+	}
+	
+	return 0;
+}
+</code></pre>
+<h2 id="总结">总结</h2>
+<ol>
+<li>
+<p>维护一个栈，使得其存储的数据具有单调性，这样的栈叫做单调栈。</p>
+</li>
+<li>
+<p>单调栈用于求解「序列中元素左/右第一个比它大/小的元素」。</p>
+</li>
+<li>
+<p>因为每个元素最多各自进出栈一次，所以时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+</li>
+<li>
+<p>单调栈经常会搭配别的算法，常见的例如二分。</p>
+</li>
+</ol>
+<h2 id="练习">练习</h2>
+<h3 id="largest-rectangle-in-a-histogram">Largest Rectangle in a Histogram</h3>
+<h4 id="题目链接-4">题目链接</h4>
+<p><a href="http://47.110.12.131:9016/problem/2050">FYMS-OI #2050</a></p>
+<p><a href="http://poj.org/problem?id=2559">POJ 2559 Largest Rectangle in a Histogram</a></p>
+<p><a href="https://www.acwing.com/problem/content/description/133/">AcWing 131. 直方图中最大的矩形</a></p>
+<h4 id="题意概括-4">题意概括</h4>
+<p>给定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个柱子的高，求出组成的多边形中最大的矩形的面积。</p>
+<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/cjwen6/cdn@main/img/202201291206712.jpeg" alt="" loading="lazy"></figure>
+<h4 id="分析-4">分析</h4>
+<p>观察发现，<strong>框出的最大矩形一定是以某个柱子为高的</strong>。</p>
+<p>枚举每根柱子，找出左边第一个比它短的柱子，和右边第一个比它短的柱子，就可以算出以这个柱子为高的最大矩形的面积，最后所有答案取最大值即可。</p>
+<p>「找出左边第一个比它短的柱子，和右边第一个比它短的柱子」用单调栈处理即可。</p>
+<h4 id="参考代码-4">参考代码</h4>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+
+using namespace std;
+
+const int N = 1e5 + 10;
+
+int n;
+int h[N], l[N], r[N];
+int st[N], top;
+long long ans;
+
+int main(){
+	
+	while(scanf(&quot;%d&quot;, &amp;n), n != 0){
+		
+		ans = 0;
+		
+		for(int i = 1; i &lt;= n; i++){
+			scanf(&quot;%d&quot;, &amp;h[i]);
+		}
+		
+//		处理左边第一个比它短的柱子 
+		top = 0;
+		for(int i = 1; i &lt;= n; i++){
+			while(top &amp;&amp; h[st[top]] &gt;= h[i]){
+				top--;
+			}
+//			if(top){
+//				l[i] = st[top];
+//			}else{
+//				l[i] = 0;
+//			}
+//			如果 top == 0，st[top] == st[0] == 0，所以也可以写成下面这个样子：
+			l[i] = st[top];
+			st[++top] = i;
+		}
+		
+//		处理有边第一个比它短的柱子 
+		top = 0;
+		for(int i = n; i &gt; 0; i--){
+			while(top &amp;&amp; h[st[top]] &gt;= h[i]){
+				top--;
+			}
+			if(top){
+				r[i] = st[top];
+			}else{
+				r[i] = n+1;
+			}
+			st[++top] = i;
+		}
+		
+		for(int i = 1; i &lt;= n; i++){
+			ans = max(ans, (long long)(r[i]-l[i]-1)*h[i]);
+		} // 分别算出以每个柱子为高的矩形的最大面积 
+		
+		printf(&quot;%lld\n&quot;, ans);
+		
+	}
+	
+	return 0;
+}
+</code></pre>
+<h1 id="本文-pdf-下载">本文 PDF 下载</h1>
+<p><a href="https://www.jianguoyun.com/p/DV7tWi4Q-b_iCRjGkKwE">单调栈_完整版_陈举文.pdf</a></p>
+
+            </div>
+            <!-- Share to Twitter, Weibo, Telegram -->
+            <div class="flex items-center">
+              <div class="mr-4 flex items-center">
+                <i class="ri-share-forward-line text-gray-500"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTwitter">
+                <i class="ri-twitter-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToWeibo">
+                <i class="ri-weibo-line"></i>
+              </div>
+              <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex"
+                @click="shareToTelegram">
+                <i class="ri-telegram-line"></i>
+              </div>
+            </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+          
+
+            
+                  
+
+                    
+
+                        <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Copyright © 2021~2022 <a href="/">cjwen6</a>
+</footer>
+
+<script type="text/javascript">
+  a=document.getElementsByTagName("a");for(var i = 0; i < a.length; i++)if(a[i].title == "站长统计")a[i].remove();
+</script>
+    </div>
+
+    <!-- TOC Container -->
+    <div
+      class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight"
+      @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div
+      class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast"
+      :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div
+          class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast"
+          @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%A0%88">栈</a></li>
+<li><a href="#%E5%8D%95%E8%B0%83%E6%A0%88">单调栈</a><br>
+*
+<ul>
+<li><a href="#%E4%BD%95%E4%B8%BA%E5%8D%95%E8%B0%83%E6%A0%88">何为单调栈</a></li>
+<li><a href="#%E4%B8%A5%E6%A0%BC">严格？</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8">应用</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">代码实现</a></li>
+<li><a href="#%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6">时空复杂度</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%95%E8%B0%83%E6%A0%88%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8">单调栈简单应用</a>
+<ul>
+<li><a href="#%E5%8D%95%E8%B0%83%E6%A0%88%E6%A8%A1%E6%9D%BF%E9%A2%98">单调栈模板题</a>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5">题目链接</a></li>
+<li><a href="#%E9%A2%98%E6%84%8F%E6%A6%82%E6%8B%AC">题意概括</a></li>
+<li><a href="#%E5%88%86%E6%9E%90">分析</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81">参考代码</a></li>
+</ul>
+</li>
+<li><a href="#bad-hair-day">Bad Hair Day</a>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5-2">题目链接</a></li>
+<li><a href="#%E9%A2%98%E6%84%8F%E6%A6%82%E6%8B%AC-2">题意概括</a></li>
+<li><a href="#%E5%88%86%E6%9E%90-2">分析</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-2">参考代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%8D%95%E8%B0%83%E6%A0%88%E7%A6%BB%E7%BA%BF%E5%A4%84%E7%90%86-rmq-%E9%97%AE%E9%A2%98">单调栈离线处理 RMQ 问题</a>
+<ul>
+<li><a href="#%E6%A8%A1%E6%9D%BFst-%E8%A1%A8">「模板」ST 表</a>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5-3">题目链接</a></li>
+<li><a href="#%E9%A2%98%E6%84%8F%E6%A6%82%E6%8B%AC-3">题意概括</a></li>
+<li><a href="#%E4%BD%95%E4%B8%BA-rmq">何为 RMQ</a></li>
+<li><a href="#%E5%9C%A8%E7%BA%BF%E4%B8%8E%E7%A6%BB%E7%BA%BF">在线与离线</a></li>
+<li><a href="#%E5%88%86%E6%9E%90-3">分析</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-3">参考代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E7%BB%83%E4%B9%A0">练习</a>
+<ul>
+<li><a href="#largest-rectangle-in-a-histogram">Largest Rectangle in a Histogram</a>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5-4">题目链接</a></li>
+<li><a href="#%E9%A2%98%E6%84%8F%E6%A6%82%E6%8B%AC-4">题意概括</a></li>
+<li><a href="#%E5%88%86%E6%9E%90-4">分析</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-4">参考代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%9C%AC%E6%96%87-pdf-%E4%B8%8B%E8%BD%BD">本文 PDF 下载</a></li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div
+      class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200"
+      @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cjwen6.cn/media/scripts/main.js"></script>
+
+    <!-- Code Highlight -->
+    
+      <script src="https://cjwen6.cn/media/prism.js"></script>
+      <script>
+        Prism.highlightAll()
+      </script>
+      
+
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+        <script>
+          //拿到预览框架，也就是上面的html代码
+          var pswpElement = document.querySelectorAll('.pswp')[0];
+          //定义图片数组变量
+          var imgitems;
+          /**
+          * 用于显示预览界面
+          * @param index 图片数组下标
+          */
+          function viewImg(index) {
+            //其它选项这里不做过多阐述，详情见官网
+            var pswpoptions = {
+              index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+              bgOpacity: 0.7, // 背景透明度，0-1
+              maxSpreadZoom: 3, // 缩放级别，不要太大
+            };
+            //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+            gallery.init()
+          }
+          /**
+          * 用于添加图片点击事件
+          * @param img 图片元素
+          * @param index 所属下标（在imgitems中的位置）
+          */
+          function addImgClick(img, index) {
+            img.onclick = function () {
+              viewImg(index)
+            }
+          }
+          /**
+          * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+          * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+          * 异步加载图片可在图片元素创建完成后调用此方法
+          */
+          function initImg() {
+            //重置图片数组
+            imgitems = [];
+            //查找class:markdown 下的所有img元素并遍历
+            var imgs = document.querySelectorAll('.markdown img');
+            for (var i = 0; i < imgs.length; i++) {
+              var img = imgs[i];
+              //本站相册初始为loading图片，真实图片放在data-src
+              var ds = img.getAttribute("data-src");
+              //创建image对象，用于获取图片宽高
+              var imgtemp = new Image();
+              //判断是否存在data-src
+              if (ds != null && ds.length > 0) {
+                imgtemp.src = ds
+              } else {
+                imgtemp.src = img.src
+              }
+              //判断是否存在缓存
+              if (imgtemp.complete) {
+                var imgobj = {
+                  "src": imgtemp.src,
+                  "w": imgtemp.width,
+                  "h": imgtemp.height,
+                };
+                imgitems[i] = imgobj;
+                addImgClick(img, i);
+              } else {
+                console.log('进来了2')
+                imgtemp.index = i;
+                imgtemp.img = img;
+                imgtemp.onload = function () {
+                  var imgobj = {
+                    "src": this.src,
+                    "w": this.width,
+                    "h": this.height,
+                  };
+                  //不要使用push，因为onload前后顺序会不同
+                  imgitems[this.index] = imgobj
+                  //添加点击事件
+                  addImgClick(this.img, this.index);
+                }
+              }
+            }
+          }
+          //初始化
+          initImg();
+        </script>
+        
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: '777e3f2c1277f7b20337',
+    clientSecret: '7135e05ea2073505f473d3d982a48a1397ecb5a0',
+    repo: 'blog-gitalk',
+    owner: 'cjwen6',
+    admin: ['cjwen6'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                    
+                      
+</body>
+
+</html>
